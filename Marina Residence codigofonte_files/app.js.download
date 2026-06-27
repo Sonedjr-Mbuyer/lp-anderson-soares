@@ -1,0 +1,73 @@
+
+/**
+ * Global icons.
+ */
+const icn = {};
+
+// GLOBAL ELEMENTS
+// ----------------------------------------
+
+/**
+ * Setup sticky header.
+ */
+(function() {
+
+  /** Get main variables on load. */
+  let offset = $(window).scrollTop();
+
+  /** Check for offset on load. */
+  if (offset > 150) $('#main-header').addClass('sticky');
+
+  /** Check for offset on scroll. */
+  $(window).on('scroll', () => {
+
+    /** Check current offset. */
+    offset = $(window).scrollTop();
+    if (offset > 150) {
+      $('#main-header').addClass('sticky');
+    } else {
+      $('#main-header').removeClass('sticky');
+    }
+  });
+}());
+
+/**
+ * Setup page transitions.
+ */
+$('a[transite]').on('click', function(e) {
+  e.preventDefault();
+
+  /** Get link information. */
+  let url = $(this).attr('href') + '/';
+
+  /** Check for same page. */
+  if (url === window.location.href) return false;
+
+  /** Enable preloader. */
+  $('#preloader').addClass('preload');
+
+  /** Move to the next page. */
+  url += '?a=true';
+  setTimeout(() => window.location.href = url, 2000);
+});
+
+// OTHER
+// ----------------------------------------
+
+/**
+ * Display blocker for landscape orientations.
+ */
+// (function() {
+//   if (window.screen.orientation.angle === 90 || window.screen.orientation.angle === 180) {
+//     $('.blocker.no-landscape').addClass('show');
+//   } else {
+//     $('.blocker.no-landscape').removeClass('show');
+//   }
+//   $(window).on('orientationchange', function() {
+//     if (window.screen.orientation.angle === 90 || window.screen.orientation.angle === 180) {
+//       $('.blocker.no-landscape').addClass('show');
+//     } else {
+//       $('.blocker.no-landscape').removeClass('show');
+//     }
+//   })
+// }());

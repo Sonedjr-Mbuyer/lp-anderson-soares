@@ -1,0 +1,82 @@
+
+/**
+ * Returns the value from a URL parameter.
+ *
+ * @param  {string}           name Parameter key.
+ * @return {(string|boolean)}      [false] if no parameter is found.
+ */
+ function get_url_param(name) {
+  var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(window.location.href);
+  if (results !== null) return results[1] || 0;
+  return false;
+}
+
+/**
+ * Logs a message into the console.
+ *
+ * @param {(string|Array)} message Message to be logged.
+ * @param {string}         type    Log type.
+ * @param {String} prefix  Prefix text.
+ */
+function log(message, type="default", prefix="LOG") {
+  if (window.dev_env === false) return false;
+
+  /** Check for a list of messages. */
+  let add = [];
+  if (typeof message === 'object') {
+    add = message.splice(1);
+    message = message[0];
+  }
+
+  /** @prepare: Base prefix and message. */
+  let msg_prefix = '%c'+prefix.toUpperCase();
+  let msg_base = '%c'+message;
+
+  /** @prepare: Formatting for base prefix and message. */
+  let msg_prefix__formatting = 'background-color: #5C636E; color: white; line-height: 19px; padding: 2px 7px 0 6px; font-size: 10px;';
+  let msg_base__formatting = 'background-color: white; border: 1px solid #5C636E; border-left: none; color: #222; line-height: 18px; padding: 1px 7px 0; font-size: 10px;';
+
+  /** @prepare: Additional information. */
+  let msg_add_formatting = [];
+  if (add.length !== 0) {
+
+    /** @prepare: Formatting for additional information. */
+    let add_formatting = 'border: 1px solid; border-left: none; line-height: 18px; padding: 1px 7px 0; font-size: 10px;';
+
+    /** Loop through each additional information. */
+    for (let x = 0; x < add.length; x++) {
+
+      /** Format depending on the message type. */
+      if (add[x].indexOf("[d]") !== -1) {
+        add[x] = add[x].replace("[d]", "");
+        add_formatting += " background-color: white; color: #17A2B8; border-color: #BBB;"
+      } else {
+        add_formatting += " background-color: #EEE; color: #222; border-color: #BBB;";
+      }
+
+      /** @save */
+      add[x] = '%c'+add[x].trim();
+      msg_add_formatting.push(add_formatting);
+    }
+  }
+
+  /** @list: Status colors. */
+  let colors = {
+    error:   '#DC3545',
+    warning: '#FF8C00',
+    success: '#28A745',
+    info:    '#17A2B8',
+    neutral: '#007BFF',
+    default: '#97A4B0'
+  }
+
+  /** @prepare: Formatting for message status. */
+  let msg_status__formatting = 'margin: 4px 8px 6px 0; color: '+colors[type]+';';
+
+  /** @prepare: Finished params. */
+  let params_msg = ['%c●', msg_prefix, msg_base, ...add].join('');
+  let params_formatting = [msg_status__formatting, msg_prefix__formatting, msg_base__formatting, ...msg_add_formatting];
+
+  /** @log */
+  console.log(params_msg, ...params_formatting);
+}

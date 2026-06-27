@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marina Residence — Av. Rio Branco, Juiz de Fora | Anderson Soares</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1C2B2D;
+            background: #fff;
+            overflow-x: hidden;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        button { font-family: inherit; cursor: pointer; }
+
+        /* ===== VARIABLES ===== */
+        :root {
+            --dark:       #012A31;
+            --dark-hover: #023540;
+            --gold:       #E2CDAD;
+            --gold-dark:  #C9B08A;
+            --cream:      #F5F0E8;
+            --muted:      #5A6E71;
+            --pad:        clamp(64px, 9vw, 120px);
+            --wrap:       1200px;
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: var(--wrap);
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 64px);
+        }
+
+        /* ===== TYPE HELPERS ===== */
+        .eyebrow {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+            margin-bottom: 14px;
+        }
+        .eyebrow.light { color: var(--gold); }
+
+        h2.headline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 50px);
+            font-weight: 700;
+            line-height: 1.13;
+            color: var(--dark);
+        }
+        h2.headline.light { color: #fff; }
+
+        .rule {
+            width: 48px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px 0 32px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .4px;
+            padding: 15px 32px;
+            border-radius: 1px;
+            border: none;
+            transition: background .2s, color .2s, transform .15s;
+        }
+        .btn:hover { transform: translateY(-1px); }
+        .btn-gold   { background: var(--gold);  color: var(--dark); }
+        .btn-gold:hover   { background: var(--gold-dark); }
+        .btn-dark   { background: var(--dark);  color: #fff; }
+        .btn-dark:hover   { background: var(--dark-hover); }
+        .btn-ghost  { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.45); }
+        .btn-ghost:hover  { border-color: var(--gold); color: var(--gold); }
+        .btn-green  { background: #25D366; color: #fff; }
+        .btn-green:hover  { background: #1DAA57; }
+
+        /* ===== HEADER ===== */
+        #header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            padding: 18px 0;
+            transition: background .3s, padding .3s, box-shadow .3s;
+        }
+        #header.stuck {
+            background: var(--dark);
+            padding: 12px 0;
+            box-shadow: 0 2px 24px rgba(0,0,0,.35);
+        }
+        #header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .h-logo img {
+            height: 44px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            transition: height .3s;
+        }
+        #header.stuck .h-logo img { height: 36px; }
+        .h-cta {
+            background: var(--gold);
+            color: var(--dark);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 22px;
+            border-radius: 1px;
+            transition: background .2s;
+        }
+        .h-cta:hover { background: var(--gold-dark); }
+
+        /* ===== HERO ===== */
+        #hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                120deg,
+                rgba(1,42,49,.88) 0%,
+                rgba(1,42,49,.62) 55%,
+                rgba(1,42,49,.18) 100%
+            );
+        }
+        .hero-body {
+            position: relative;
+            z-index: 2;
+            max-width: 660px;
+            padding-top: 80px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            background: rgba(226,205,173,.12);
+            border: 1px solid rgba(226,205,173,.35);
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            margin-bottom: 30px;
+        }
+        .hero-badge::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: #5FCF80;
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+        .hero-h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 6vw, 72px);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.08;
+            margin-bottom: 24px;
+        }
+        .hero-h1 em { font-style: italic; color: var(--gold); }
+        .hero-sub {
+            font-size: clamp(15px, 1.8vw, 18px);
+            font-weight: 300;
+            color: rgba(255,255,255,.8);
+            line-height: 1.75;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+        .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+        .hero-scroll {
+            position: absolute;
+            bottom: 32px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-scroll span {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.4);
+        }
+        .scroll-bar {
+            width: 1px; height: 44px;
+            background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+            animation: sbar 1.6s ease-in-out infinite;
+        }
+        @keyframes sbar {
+            0%   { transform: scaleY(0); transform-origin: top; }
+            49%  { transform: scaleY(1); transform-origin: top; }
+            50%  { transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* ===== NUMBERS ===== */
+        #numbers { background: var(--dark); }
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .n-item {
+            padding: 38px 20px;
+            text-align: center;
+            border-right: 1px solid rgba(226,205,173,.12);
+        }
+        .n-item:last-child { border-right: none; }
+        .n-val {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 3.5vw, 48px);
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .n-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,.55);
+            letter-spacing: .3px;
+            line-height: 1.5;
+        }
+
+        /* ===== ABOUT ===== */
+        #sobre { padding: var(--pad) 0; background: var(--cream); }
+        .sobre-grid {
+            display: grid;
+            grid-template-columns: 5fr 6fr;
+            gap: clamp(40px, 7vw, 96px);
+            align-items: center;
+        }
+        .sobre-img { position: relative; }
+        .sobre-img img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+        }
+        .sobre-callout {
+            position: absolute;
+            bottom: -28px;
+            right: -28px;
+            background: var(--dark);
+            padding: 28px 32px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .sobre-callout strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+            line-height: 1;
+        }
+        .sobre-callout span {
+            font-size: 11px;
+            color: rgba(255,255,255,.65);
+            letter-spacing: 1px;
+            margin-top: 6px;
+            display: block;
+        }
+        .sobre-text p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+        .sobre-text p strong { color: var(--dark); font-weight: 600; }
+        .sobre-checks {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 36px;
+        }
+        .s-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .s-icon {
+            width: 34px; height: 34px;
+            min-width: 34px;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .s-icon svg { width: 16px; height: 16px; fill: var(--dark); }
+        .s-copy {
+            padding-top: 6px;
+            font-size: 14px;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        .s-copy strong { display: block; font-weight: 600; margin-bottom: 2px; }
+
+        /* ===== LAZER ===== */
+        #lazer { padding: var(--pad) 0; background: #fff; }
+        .lazer-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: end;
+            margin-bottom: 56px;
+        }
+        .lazer-intro p {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 420px;
+        }
+        .amenities {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 2px;
+            background: #E5DDD3;
+        }
+        .am-card {
+            background: #fff;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: background .2s;
+        }
+        .am-card:hover { background: var(--cream); }
+        .am-num {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gold-dark);
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+        }
+        .am-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+        .pilotis-wrap {
+            margin-top: 56px;
+            position: relative;
+            line-height: 0; /* remove gap below inline img */
+        }
+        .pilotis-wrap img {
+            width: 100%;
+            height: auto;
+            max-width: none;
+            display: block;
+        }
+        .pilotis-tag {
+            position: absolute;
+            bottom: 0; left: 0;
+            background: var(--dark);
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 12px 22px;
+        }
+
+        /* ===== GALLERY ===== */
+        #galeria { padding: var(--pad) 0; background: var(--dark); }
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 240px;
+            gap: 4px;
+            margin-top: 40px;
+        }
+        .g-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .g-item.wide { grid-column: span 2; }
+        .g-item.tall { grid-row: span 2; }
+        .g-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+        .g-item:hover img { transform: scale(1.06); }
+        .g-over {
+            position: absolute;
+            inset: 0;
+            background: rgba(1,42,49,0);
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
+            transition: background .3s;
+        }
+        .g-item:hover .g-over { background: rgba(1,42,49,.55); }
+        .g-cap {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .g-item:hover .g-cap { opacity: 1; }
+
+        /* Lightbox */
+        #lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.93);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+        }
+        #lb.open { display: flex; }
+        #lb img { max-width: 90vw; max-height: 86vh; object-fit: contain; }
+        #lb-close {
+            position: absolute;
+            top: 20px; right: 24px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,.7);
+            font-size: 40px;
+            line-height: 1;
+            cursor: pointer;
+            transition: color .2s;
+        }
+        #lb-close:hover { color: #fff; }
+        #lb-prev, #lb-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,.08);
+            border: none;
+            color: rgba(255,255,255,.7);
+            font-size: 28px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+        #lb-prev:hover, #lb-next:hover { background: rgba(255,255,255,.18); color: #fff; }
+        #lb-prev { left: 16px; }
+        #lb-next { right: 16px; }
+
+        /* ===== PLANTAS ===== */
+        #plantas { padding: var(--pad) 0; background: var(--cream); }
+        .plantas-head { text-align: center; margin-bottom: 48px; }
+        .plantas-head .rule { margin: 18px auto 0; }
+        .slider { position: relative; overflow: hidden; }
+        .slider-track {
+            display: flex;
+            transition: transform .42s ease;
+        }
+        .slide { min-width: 100%; }
+        .slide img {
+            width: 100%;
+            max-height: 620px;
+            object-fit: contain;
+            background: #fff;
+        }
+        .slider-ctrl {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 26px;
+        }
+        .s-btn {
+            width: 46px; height: 46px;
+            background: var(--dark);
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        .s-btn:hover { background: var(--gold-dark); }
+        .s-dots { display: flex; gap: 8px; }
+        .s-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(1,42,49,.2);
+            border: none;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        .s-dot.on { background: var(--dark); }
+
+        /* ===== OBRAS ===== */
+        #obras { padding: var(--pad) 0; background: #fff; }
+        .obras-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .obras-prog { text-align: right; }
+        .prog-label { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+        .prog-bar {
+            width: 200px;
+            height: 4px;
+            background: #E5DDD3;
+            border-radius: 2px;
+        }
+        .prog-fill {
+            height: 100%;
+            width: 85%;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        .prog-sub { font-size: 11px; color: var(--muted); margin-top: 6px; }
+        .obras-row {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+        }
+        .obras-row::-webkit-scrollbar { height: 3px; }
+        .obras-row::-webkit-scrollbar-track { background: #E5DDD3; }
+        .obras-row::-webkit-scrollbar-thumb { background: var(--gold); }
+        .o-card { min-width: 340px; scroll-snap-align: start; flex-shrink: 0; }
+        .o-card img { width: 100%; height: 230px; object-fit: cover; display: block; }
+        .o-label {
+            background: var(--dark);
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 10px 16px;
+        }
+
+        /* ===== MAP ===== */
+        #localizacao { padding: var(--pad) 0; background: var(--dark); }
+        .map-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(36px, 6vw, 80px);
+            align-items: start;
+            margin-top: 48px;
+        }
+        .map-img-wrap { position: relative; }
+        .map-img-wrap img { width: 100%; }
+        .map-hint {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            background: var(--gold);
+            color: var(--dark);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 12px;
+        }
+        .map-addr {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 36px;
+        }
+        .map-addr img { width: 18px; margin-top: 4px; }
+        .map-addr-txt {
+            font-size: 16px;
+            color: rgba(255,255,255,.8);
+            line-height: 1.65;
+        }
+        .map-addr-txt strong {
+            display: block;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .map-points { display: flex; flex-direction: column; gap: 20px; }
+        .map-pt {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(226,205,173,.12);
+        }
+        .map-pt:last-child { border-bottom: none; padding-bottom: 0; }
+        .map-dot {
+            width: 8px; height: 8px;
+            min-width: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            margin-top: 6px;
+        }
+        .map-pt-txt {
+            font-size: 14px;
+            color: rgba(255,255,255,.65);
+            line-height: 1.6;
+        }
+        .map-pt-txt strong { color: #fff; font-weight: 500; }
+
+        /* ===== CORRETOR ===== */
+        #corretor { padding: var(--pad) 0; background: var(--cream); }
+        .corretor-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: clamp(40px, 7vw, 96px);
+            align-items: center;
+            margin-top: 48px;
+        }
+        .corretor-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        .avatar {
+            width: 230px; height: 230px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--dark);
+            background: #C5BCAF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .avatar svg {
+            width: 110px; height: 110px;
+            fill: rgba(1,42,49,.18);
+        }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .corretor-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(26px, 3.5vw, 40px);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+        .corretor-creci {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .corretor-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 26px;
+        }
+        .c-tag {
+            background: var(--dark);
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            text-transform: uppercase;
+        }
+        .corretor-bio {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.9;
+            margin-bottom: 32px;
+            max-width: 560px;
+        }
+        .corretor-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        /* ===== FORM ===== */
+        #formulario { padding: var(--pad) 0; background: var(--dark); }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(40px, 7vw, 96px);
+            align-items: center;
+        }
+        .form-left p {
+            color: rgba(255,255,255,.6);
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 22px 0 30px;
+        }
+        .f-benefits { display: flex; flex-direction: column; gap: 12px; }
+        .f-ben {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: rgba(255,255,255,.7);
+        }
+        .f-check {
+            width: 20px; height: 20px;
+            min-width: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .f-check svg { width: 10px; height: 10px; fill: var(--dark); }
+        .form-card {
+            background: #fff;
+            padding: clamp(30px, 4vw, 52px);
+        }
+        .form-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 28px;
+        }
+        .field {
+            margin-bottom: 18px;
+        }
+        .field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--dark);
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .field input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #DDD5C5;
+            background: #F9F7F3;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: var(--dark);
+            outline: none;
+            -webkit-appearance: none;
+            border-radius: 0;
+            transition: border-color .2s, background .2s;
+        }
+        .field input:focus { border-color: var(--dark); background: #fff; }
+        .field input::placeholder { color: #AEAAA2; }
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--dark);
+            color: #fff;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: .4px;
+            margin-top: 6px;
+            transition: background .2s;
+        }
+        .btn-submit:hover { background: var(--dark-hover); }
+        .form-wa-alt {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .form-wa-alt a {
+            color: #25D366;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .form-wa-alt svg { width: 15px; height: 15px; fill: #25D366; }
+
+        /* ===== FLOAT WA ===== */
+        #wa-float {
+            position: fixed;
+            bottom: 28px; right: 28px;
+            z-index: 300;
+            width: 58px; height: 58px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 22px rgba(37,211,102,.38);
+            transition: transform .2s, box-shadow .2s;
+        }
+        #wa-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37,211,102,.55);
+        }
+        #wa-float svg { width: 30px; height: 30px; fill: #fff; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #000D0F;
+            padding: 52px 0 32px;
+        }
+        .ft-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: start;
+            padding-bottom: 36px;
+            border-bottom: 1px solid rgba(226,205,173,.1);
+            margin-bottom: 28px;
+        }
+        .ft-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        .ft-addr a {
+            font-size: 15px;
+            color: rgba(255,255,255,.65);
+            line-height: 1.7;
+            transition: color .2s;
+        }
+        .ft-addr a:hover { color: var(--gold); }
+        .ft-logos {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .ft-logo {
+            text-align: center;
+        }
+        .ft-logo-sub {
+            font-size: 9px;
+            color: rgba(255,255,255,.3);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+        }
+        .ft-logo img {
+            height: 26px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: .45;
+            transition: opacity .2s;
+        }
+        .ft-logo:hover img { opacity: 1; }
+        .ft-legal {
+            font-size: 10.5px;
+            color: rgba(255,255,255,.22);
+            line-height: 1.75;
+            max-width: 960px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .galeria-grid { grid-template-columns: repeat(2,1fr); }
+            .g-item.wide { grid-column: span 1; }
+        }
+        @media (max-width: 768px) {
+            .numbers-grid { grid-template-columns: repeat(2,1fr); }
+            .n-item:nth-child(2) { border-right: none; }
+            .n-item:nth-child(3),.n-item:nth-child(4) { border-top: 1px solid rgba(226,205,173,.12); }
+            .sobre-grid { grid-template-columns: 1fr; }
+            .sobre-callout { bottom: -16px; right: 16px; }
+            .lazer-top { grid-template-columns: 1fr; }
+            .lazer-intro p { max-width: 100%; }
+            .galeria-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; }
+            .g-item.tall { grid-row: span 1; }
+            .map-grid { grid-template-columns: 1fr; }
+            .corretor-grid { grid-template-columns: 1fr; }
+            .corretor-left { flex-direction: row; align-items: center; gap: 24px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .ft-inner { grid-template-columns: 1fr; }
+            .ft-logos { justify-content: flex-start; }
+            .h-cta { display: none; }
+        }
+        @media (max-width: 520px) {
+            .galeria-grid { grid-template-columns: 1fr; }
+            .g-item.wide { grid-column: span 1; }
+            .corretor-left { flex-direction: column; }
+            .avatar { width: 170px; height: 170px; }
+            .o-card { min-width: 270px; }
+            .hero-actions { flex-direction: column; }
+            .hero-actions .btn { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║            HEADER               ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<header id="header">
+    <div class="container">
+        <a href="#hero" class="h-logo">
+            <img src="./Marina Residence codigofonte_files/logo-marina-residence.png" alt="Marina Residence">
+        </a>
+        <a href="#formulario" class="h-cta">Solicitar Atendimento</a>
+    </div>
+</header>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║              HERO               ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="hero">
+    <div class="hero-bg">
+        <img src="./Marina Residence codigofonte_files/background-hero.jpg" alt="Marina Residence — Juiz de Fora">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="hero-body">
+            <div class="hero-badge">Obras em fase final</div>
+            <h1 class="hero-h1">
+                Viva no endereço<br><em>mais desejado</em><br>de Juiz de Fora
+            </h1>
+            <p class="hero-sub">
+                Torre única com lazer completo e localização privilegiada na Av. Barão do Rio Branco —
+                onde sofisticação e qualidade de vida se encontram no mesmo lugar.
+            </p>
+            <div class="hero-actions">
+                <a href="#formulario" class="btn btn-gold">Quero conhecer o Marina</a>
+                <a href="#lazer" class="btn btn-ghost">Ver estrutura de lazer</a>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-bar"></div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║            NUMBERS              ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="numbers">
+    <div class="container">
+        <div class="numbers-grid">
+            <div class="n-item">
+                <span class="n-val">14</span>
+                <span class="n-desc">Espaços de lazer<br>no pilotis</span>
+            </div>
+            <div class="n-item">
+                <span class="n-val">1</span>
+                <span class="n-desc">Torre exclusiva,<br>sem divisões</span>
+            </div>
+            <div class="n-item">
+                <span class="n-val">3</span>
+                <span class="n-desc">Elevadores de<br>alta velocidade</span>
+            </div>
+            <div class="n-item">
+                <span class="n-val">100%</span>
+                <span class="n-desc">Dos aptos com<br>varanda gourmet</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║             SOBRE               ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="sobre">
+    <div class="container">
+        <div class="sobre-grid">
+            <div class="sobre-img">
+                <img src="./Marina Residence codigofonte_files/image-about.png" alt="Marina Residence — perspectiva">
+                <div class="sobre-callout">
+                    <strong>14</strong>
+                    <span>áreas de lazer</span>
+                </div>
+            </div>
+            <div class="sobre-text">
+                <span class="eyebrow">O empreendimento</span>
+                <h2 class="headline">O endereço que redefine o padrão em Juiz de Fora</h2>
+                <div class="rule"></div>
+                <p>
+                    O <strong>Marina Residence</strong> não é apenas mais um lançamento imobiliário —
+                    é uma declaração sobre como a vida pode e deve ser vivida. Situado no coração
+                    da Av. Barão do Rio Branco, no bairro Alto dos Passos, ele reúne uma
+                    localização de primeiro nível com uma estrutura de lazer que rivaliza com os
+                    melhores clubes de Juiz de Fora.
+                </p>
+                <p>
+                    Com torre única e paisagismo exuberante em todo o empreendimento, cada detalhe
+                    foi concebido para quem valoriza privacidade, conforto e conexão com o espaço
+                    ao redor. Da varanda gourmet ao spa, do pet place à quadra poliesportiva,
+                    aqui tudo funciona como um clube a poucos passos da sua porta.
+                </p>
+                <div class="sobre-checks">
+                    <div class="s-check">
+                        <div class="s-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        </div>
+                        <div class="s-copy">
+                            <strong>Localização estratégica</strong>
+                            Av. Barão do Rio Branco, 3.579 — próximo ao melhor que Juiz de Fora oferece.
+                        </div>
+                    </div>
+                    <div class="s-check">
+                        <div class="s-icon">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>
+                        </div>
+                        <div class="s-copy">
+                            <strong>Obras em fase final</strong>
+                            Construção avançada com entrega prevista em breve — invista com segurança.
+                        </div>
+                    </div>
+                    <div class="s-check">
+                        <div class="s-icon">
+                            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        </div>
+                        <div class="s-copy">
+                            <strong>Lazer como nunca se viu</strong>
+                            14 ambientes de convívio e bem-estar a poucos passos do seu apartamento.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║             LAZER               ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="lazer">
+    <div class="container">
+        <div class="lazer-top">
+            <div>
+                <span class="eyebrow">Estrutura de lazer</span>
+                <h2 class="headline">Um clube completo<br>no seu condomínio</h2>
+                <div class="rule"></div>
+            </div>
+            <div class="lazer-intro">
+                <p>
+                    14 espaços pensados para cada momento da sua rotina — da manhã na academia ao
+                    fim de semana com a família ao redor da piscina. Aqui, o lazer não é um extra:
+                    é parte do estilo de vida.
+                </p>
+            </div>
+        </div>
+
+        <div class="amenities">
+            <div class="am-card"><span class="am-num">01</span><span class="am-name">Pet Place</span></div>
+            <div class="am-card"><span class="am-num">02</span><span class="am-name">Quadra Poliesportiva</span></div>
+            <div class="am-card"><span class="am-num">03</span><span class="am-name">Parrillas Gourmet</span></div>
+            <div class="am-card"><span class="am-num">04</span><span class="am-name">Playground</span></div>
+            <div class="am-card"><span class="am-num">05</span><span class="am-name">Espaço Kids</span></div>
+            <div class="am-card"><span class="am-num">06</span><span class="am-name">Espaço Fitness</span></div>
+            <div class="am-card"><span class="am-num">07</span><span class="am-name">Espaço Gourmet com Bilhar</span></div>
+            <div class="am-card"><span class="am-num">08</span><span class="am-name">Salão de Festas</span></div>
+            <div class="am-card"><span class="am-num">09</span><span class="am-name">Piscina com Deck Molhado</span></div>
+            <div class="am-card"><span class="am-num">10</span><span class="am-name">Gazebo</span></div>
+            <div class="am-card"><span class="am-num">11</span><span class="am-name">Espelho d'Água</span></div>
+            <div class="am-card"><span class="am-num">12</span><span class="am-name">Piscina Infantil</span></div>
+            <div class="am-card"><span class="am-num">13</span><span class="am-name">Lounge do Fogo</span></div>
+            <div class="am-card"><span class="am-num">14</span><span class="am-name">Spa</span></div>
+        </div>
+    </div>
+
+    <!-- pilotis fora do container para ocupar largura total da seção -->
+    <div class="pilotis-wrap">
+        <img src="./Marina Residence codigofonte_files/pilotis.png" alt="Implantação do pilotis — Marina Residence">
+        <div class="pilotis-tag">Implantação do pilotis</div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║            GALERIA              ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="galeria">
+    <div class="container">
+        <span class="eyebrow light">Ambientes e acabamentos</span>
+        <h2 class="headline light">Veja o Marina por dentro</h2>
+
+        <div class="galeria-grid">
+            <div class="g-item wide" data-src="./Marina Residence codigofonte_files/01-fachada.jpg" data-cap="Fachada" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/01-fachada.jpg" alt="Fachada">
+                <div class="g-over"><span class="g-cap">Fachada</span></div>
+            </div>
+            <div class="g-item tall" data-src="./Marina Residence codigofonte_files/02-piscina.jpg" data-cap="Piscina" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/02-piscina.jpg" alt="Piscina">
+                <div class="g-over"><span class="g-cap">Piscina</span></div>
+            </div>
+            <div class="g-item" data-src="./Marina Residence codigofonte_files/06-churrasqueira.jpg" data-cap="Parrilla Gourmet" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/06-churrasqueira.jpg" alt="Parrilla Gourmet">
+                <div class="g-over"><span class="g-cap">Parrilla Gourmet</span></div>
+            </div>
+            <div class="g-item" data-src="./Marina Residence codigofonte_files/07-gourmet.jpg" data-cap="Espaço Gourmet" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/07-gourmet.jpg" alt="Espaço Gourmet">
+                <div class="g-over"><span class="g-cap">Espaço Gourmet com Bilhar</span></div>
+            </div>
+            <div class="g-item" data-src="./Marina Residence codigofonte_files/08-salao-de-festas.jpg" data-cap="Salão de Festas" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/08-salao-de-festas.jpg" alt="Salão de Festas">
+                <div class="g-over"><span class="g-cap">Salão de Festas</span></div>
+            </div>
+            <div class="g-item" data-src="./Marina Residence codigofonte_files/015-academia.jpg" data-cap="Espaço Fitness" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/015-academia.jpg" alt="Espaço Fitness">
+                <div class="g-over"><span class="g-cap">Espaço Fitness</span></div>
+            </div>
+            <div class="g-item" data-src="./Marina Residence codigofonte_files/010-kids-1.jpg" data-cap="Espaço Kids" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/010-kids-1.jpg" alt="Espaço Kids">
+                <div class="g-over"><span class="g-cap">Espaço Kids</span></div>
+            </div>
+            <div class="g-item" data-src="./Marina Residence codigofonte_files/016-apartamento-tipo-01-varanda.jpg" data-cap="Varanda Gourmet" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/016-apartamento-tipo-01-varanda.jpg" alt="Varanda">
+                <div class="g-over"><span class="g-cap">Varanda Gourmet</span></div>
+            </div>
+            <div class="g-item" data-src="./Marina Residence codigofonte_files/017-apartamento-tipo-01-sala.jpg" data-cap="Sala de Estar" onclick="lbOpen(this)">
+                <img src="./Marina Residence codigofonte_files/017-apartamento-tipo-01-sala.jpg" alt="Sala de Estar">
+                <div class="g-over"><span class="g-cap">Sala de Estar</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lb">
+    <button id="lb-close" onclick="lbClose()">×</button>
+    <button id="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+    <img id="lb-img" src="" alt="">
+    <button id="lb-next" onclick="lbNav(1)">&#8250;</button>
+</div>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║            PLANTAS              ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="plantas">
+    <div class="container">
+        <div class="plantas-head">
+            <span class="eyebrow">Tipologias disponíveis</span>
+            <h2 class="headline">Plantas exclusivas para<br>cada estilo de vida</h2>
+            <div class="rule"></div>
+        </div>
+
+        <div class="slider" id="plantas-slider">
+            <div class="slider-track" id="p-track">
+                <div class="slide"><img src="./Marina Residence codigofonte_files/Planta-1.jpg" alt="Planta 01"></div>
+                <div class="slide"><img src="./Marina Residence codigofonte_files/Planta-2.jpg" alt="Planta 02"></div>
+                <div class="slide"><img src="./Marina Residence codigofonte_files/Planta-3.jpg" alt="Planta 03"></div>
+                <div class="slide"><img src="./Marina Residence codigofonte_files/Planta-4.jpg" alt="Planta 04"></div>
+            </div>
+        </div>
+        <div class="slider-ctrl">
+            <button class="s-btn" onclick="pSlide(-1)">&#8592;</button>
+            <div class="s-dots" id="p-dots">
+                <button class="s-dot on" onclick="pGo(0)"></button>
+                <button class="s-dot" onclick="pGo(1)"></button>
+                <button class="s-dot" onclick="pGo(2)"></button>
+                <button class="s-dot" onclick="pGo(3)"></button>
+            </div>
+            <button class="s-btn" onclick="pSlide(1)">&#8594;</button>
+        </div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║             OBRAS               ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="obras">
+    <div class="container">
+        <div class="obras-top">
+            <div>
+                <span class="eyebrow">Acompanhe o avanço</span>
+                <h2 class="headline">Andamento das obras</h2>
+            </div>
+            <div class="obras-prog">
+                <div class="prog-label">Obras avançadas</div>
+                <div class="prog-bar"><div class="prog-fill"></div></div>
+                <div class="prog-sub">Fase final de acabamento</div>
+            </div>
+        </div>
+
+        <div class="obras-row">
+            <div class="o-card">
+                <img src="./Marina Residence codigofonte_files/1.jpg" alt="">
+                <div class="o-label">Dezembro / 2025</div>
+            </div>
+            <div class="o-card">
+                <img src="./Marina Residence codigofonte_files/2.jpg" alt="">
+                <div class="o-label">Dezembro / 2025</div>
+            </div>
+            <div class="o-card">
+                <img src="./Marina Residence codigofonte_files/3.jpg" alt="">
+                <div class="o-label">Dezembro / 2025</div>
+            </div>
+            <div class="o-card">
+                <img src="./Marina Residence codigofonte_files/4.jpg" alt="">
+                <div class="o-label">Dezembro / 2025</div>
+            </div>
+            <div class="o-card">
+                <img src="./Marina Residence codigofonte_files/outubro-2024-image-2.jpg" alt="">
+                <div class="o-label">Outubro / 2024</div>
+            </div>
+            <div class="o-card">
+                <img src="./Marina Residence codigofonte_files/outubro-2024-image-3.jpg" alt="">
+                <div class="o-label">Outubro / 2024</div>
+            </div>
+            <div class="o-card">
+                <img src="./Marina Residence codigofonte_files/fevereiro-2024-image-1.jpg" alt="">
+                <div class="o-label">Fevereiro / 2024</div>
+            </div>
+            <div class="o-card">
+                <img src="./Marina Residence codigofonte_files/fevereiro-2024-image-2.jpg" alt="">
+                <div class="o-label">Fevereiro / 2024</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║          LOCALIZAÇÃO            ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="localizacao">
+    <div class="container">
+        <span class="eyebrow light">Onde você vai morar</span>
+        <h2 class="headline light">Perto de tudo que<br>importa no seu dia a dia</h2>
+
+        <div class="map-grid">
+            <div class="map-img-wrap">
+                <a href="https://www.google.com/maps/place/Edif%C3%ADcio+Marina+Residence/@-21.7731499,-43.348944,17z" target="_blank" rel="noopener">
+                    <img src="./Marina Residence codigofonte_files/map.jpg" alt="Mapa — Marina Residence, Av. Rio Branco, JF">
+                </a>
+                <div class="map-hint">Ver no Google Maps ↗</div>
+            </div>
+            <div>
+                <div class="map-addr">
+                    <img src="./Marina Residence codigofonte_files/pin.png" alt="">
+                    <div class="map-addr-txt">
+                        <strong>Av. Barão do Rio Branco, 3.579</strong>
+                        Alto dos Passos — Juiz de Fora, MG
+                    </div>
+                </div>
+                <div class="map-points">
+                    <div class="map-pt">
+                        <div class="map-dot"></div>
+                        <div class="map-pt-txt">
+                            <strong>Acesso facilitado</strong> às principais vias da cidade,
+                            com mobilidade para todos os bairros.
+                        </div>
+                    </div>
+                    <div class="map-pt">
+                        <div class="map-dot"></div>
+                        <div class="map-pt-txt">
+                            <strong>Comércio e serviços</strong> a poucos minutos — supermercados,
+                            farmácias, restaurantes e muito mais.
+                        </div>
+                    </div>
+                    <div class="map-pt">
+                        <div class="map-dot"></div>
+                        <div class="map-pt-txt">
+                            <strong>Escolas e universidades</strong> de qualidade nas proximidades,
+                            ideal para famílias.
+                        </div>
+                    </div>
+                    <div class="map-pt">
+                        <div class="map-dot"></div>
+                        <div class="map-pt-txt">
+                            <strong>Alto dos Passos</strong> — um dos bairros mais valorizados
+                            e tranquilos de Juiz de Fora.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║           CORRETOR              ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="corretor">
+    <div class="container">
+        <span class="eyebrow">Seu especialista</span>
+        <h2 class="headline">Atendimento personalizado<br>com quem conhece o Marina</h2>
+
+        <div class="corretor-grid">
+            <div class="corretor-left">
+                <div class="avatar">
+                    <!--
+                        ┌─────────────────────────────────────────────┐
+                        │  SUBSTITUA ESTE BLOCO PELA FOTO DE ANDERSON │
+                        │  <img src="foto-anderson.jpg" alt="Anderson">│
+                        └─────────────────────────────────────────────┘
+                    -->
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4
+                                 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6
+                                 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                    </svg>
+                </div>
+                <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" class="btn btn-green">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94
+                        1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198
+                        0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077
+                        4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.529 5.856L.057 23.875l6.196-1.449A11.934 11.934
+                        0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.518-5.179-1.421l-.371-.22-3.678.86.874-3.595-.241-.389A9.955
+                        9.955 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                    </svg>
+                    Falar no WhatsApp
+                </a>
+            </div>
+
+            <div>
+                <h3 class="corretor-name">Anderson Soares</h3>
+                <p class="corretor-creci">
+                    <!--  Substitua pelo CRECI real  -->
+                    CRECI-MG Nº XXXXX &nbsp;|&nbsp; Corretor de Imóveis
+                </p>
+                <div class="corretor-tags">
+                    <span class="c-tag">Especialista Marina Residence</span>
+                    <span class="c-tag">Alto dos Passos</span>
+                    <span class="c-tag">JF Imóveis de alto padrão</span>
+                </div>
+                <p class="corretor-bio">
+                    <!--
+                        ╔══════════════════════════════════════════════════╗
+                        ║         BIO PLACEHOLDER — SUBSTITUA             ║
+                        ║  Insira aqui a biografia real de Anderson Soares ║
+                        ╚══════════════════════════════════════════════════╝
+                    -->
+                    Com sólida experiência no mercado imobiliário de Juiz de Fora, Anderson Soares
+                    é especialista em imóveis de alto padrão e possui profundo conhecimento sobre o
+                    Marina Residence — do projeto arquitetônico às condições de negociação.
+                    Seu atendimento é personalizado, transparente e focado em encontrar a solução
+                    ideal para cada cliente. Agende uma visita e descubra por que o Marina Residence
+                    é o investimento mais inteligente da cidade.
+                </p>
+                <div class="corretor-actions">
+                    <a href="#formulario" class="btn btn-dark">Agendar visita com Anderson</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║           FORMULÁRIO            ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="formulario">
+    <div class="container">
+        <div class="form-grid">
+            <div class="form-left">
+                <span class="eyebrow light">Próximo passo</span>
+                <h2 class="headline light">Garanta seu<br>atendimento exclusivo</h2>
+                <p>
+                    Preencha o formulário e Anderson Soares entrará em contato para apresentar
+                    as oportunidades disponíveis no Marina Residence com condições especiais
+                    e atendimento diferenciado.
+                </p>
+                <div class="f-benefits">
+                    <div class="f-ben">
+                        <div class="f-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        Book exclusivo do empreendimento
+                    </div>
+                    <div class="f-ben">
+                        <div class="f-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        Tabela de preços e condições de pagamento
+                    </div>
+                    <div class="f-ben">
+                        <div class="f-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        Visita guiada ao apartamento decorado
+                    </div>
+                    <div class="f-ben">
+                        <div class="f-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        Atendimento sem compromisso
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-card-title">Solicitar informações</div>
+                <form id="contact-form" onsubmit="return submitForm(event)">
+                    <div class="field">
+                        <label for="f-nome">Nome completo</label>
+                        <input type="text" id="f-nome" name="nome" placeholder="Digite seu nome" required>
+                    </div>
+                    <div class="field">
+                        <label for="f-email">E-mail</label>
+                        <input type="email" id="f-email" name="email" placeholder="Digite seu e-mail" required>
+                    </div>
+                    <div class="field">
+                        <label for="f-tel">Telefone / WhatsApp</label>
+                        <input type="tel" id="f-tel" name="telefone" placeholder="(00) 00000-0000" required maxlength="15">
+                    </div>
+                    <button type="submit" class="btn-submit">Quero receber mais informações</button>
+                </form>
+                <div class="form-wa-alt">
+                    ou fale agora pelo
+                    <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94
+                            1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198
+                            0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077
+                            4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.529 5.856L.057 23.875l6.196-1.449A11.934 11.934 0
+                            0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.518-5.179-1.421l-.371-.22-3.678.86.874-3.595-.241-.389A9.955
+                            9.955 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                        </svg>
+                        WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" id="wa-float" aria-label="Falar pelo WhatsApp">
+    <svg viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94
+        1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198
+        0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077
+        4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.529 5.856L.057 23.875l6.196-1.449A11.934 11.934 0
+        0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.518-5.179-1.421l-.371-.22-3.678.86.874-3.595-.241-.389A9.955
+        9.955 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+</a>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║            FOOTER               ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<footer>
+    <div class="container">
+        <div class="ft-inner">
+            <div>
+                <div class="ft-label">Plantão de vendas no local</div>
+                <div class="ft-addr">
+                    <a href="https://www.google.com/maps/place/Edif%C3%ADcio+Marina+Residence/@-21.7731499,-43.348944,17z" target="_blank" rel="noopener">
+                        Av. Barão do Rio Branco, 3.579<br>
+                        Alto dos Passos — Juiz de Fora (MG)
+                    </a>
+                </div>
+            </div>
+            <div class="ft-logos">
+                <div class="ft-logo">
+                    <div class="ft-logo-sub">Incorporação</div>
+                    <img src="./Marina Residence codigofonte_files/acr-logo.png" alt="ACR">
+                </div>
+                <div class="ft-logo">
+                    <div class="ft-logo-sub">Arquitetura</div>
+                    <img src="./Marina Residence codigofonte_files/skylab-logo.png" alt="Skylab">
+                </div>
+                <div class="ft-logo">
+                    <div class="ft-logo-sub">Marketing</div>
+                    <img src="./Marina Residence codigofonte_files/300-logo.png" alt="300">
+                </div>
+                <div class="ft-logo">
+                    <div class="ft-logo-sub">Vendas</div>
+                    <img src="./Marina Residence codigofonte_files/logo-imobi.png" alt="Imobi">
+                </div>
+            </div>
+        </div>
+        <p class="ft-legal">
+            As imagens desta peça publicitária são meramente ilustrativas, bem como os móveis, os equipamentos,
+            os acessórios e o paisagismo. Os materiais de acabamento constantes no memorial descritivo anexo ao
+            contrato prevalecem sobre essas ilustrações. Todo o mobiliário e equipamentos citados nos descritivos
+            das áreas comuns fazem parte do enxoval do empreendimento, com investimento rateado por todos os
+            apartamentos. Memorial de incorporação registrado sob 0 R-5, no 2º Ofício de Registro de Imóveis
+            de Juiz de Fora — MG em 12/01/2022, na matrícula 49957, nos termos da lei nº 4.591/64.
+        </p>
+    </div>
+</footer>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║           JAVASCRIPT            ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<script>
+    /* ── Header scroll ── */
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('stuck', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ── Plantas slider ── */
+    let pIdx = 0;
+    const pTotal = 4;
+    const pTrack = document.getElementById('p-track');
+    const pDots  = document.querySelectorAll('#p-dots .s-dot');
+
+    function pGo(i) {
+        pIdx = i;
+        pTrack.style.transform = `translateX(-${pIdx * 100}%)`;
+        pDots.forEach((d, n) => d.classList.toggle('on', n === pIdx));
+    }
+    function pSlide(dir) {
+        pGo((pIdx + dir + pTotal) % pTotal);
+    }
+
+    /* ── Gallery lightbox ── */
+    const galleryItems = Array.from(document.querySelectorAll('.g-item'));
+    let lbCurrent = 0;
+
+    function lbOpen(el) {
+        lbCurrent = galleryItems.indexOf(el);
+        document.getElementById('lb-img').src = el.dataset.src;
+        document.getElementById('lb').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function lbClose() {
+        document.getElementById('lb').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    function lbNav(dir) {
+        lbCurrent = (lbCurrent + dir + galleryItems.length) % galleryItems.length;
+        const el = galleryItems[lbCurrent];
+        document.getElementById('lb-img').src = el.dataset.src;
+    }
+
+    document.getElementById('lb').addEventListener('click', function(e) {
+        if (e.target === this) lbClose();
+    });
+    document.addEventListener('keydown', function(e) {
+        const lb = document.getElementById('lb');
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') lbClose();
+        if (e.key === 'ArrowLeft')  lbNav(-1);
+        if (e.key === 'ArrowRight') lbNav(1);
+    });
+
+    /* ── Phone mask ── */
+    document.getElementById('f-tel').addEventListener('input', function() {
+        let v = this.value.replace(/\D/g, '').slice(0, 11);
+        if (v.length <= 10) {
+            v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        } else {
+            v = v.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+        }
+        this.value = v.replace(/-$/, '');
+    });
+
+    /* ── Form submit placeholder ── */
+    function submitForm(e) {
+        e.preventDefault();
+        const nome = document.getElementById('f-nome').value;
+        alert(`Obrigado, ${nome}! Anderson Soares entrará em contato em breve.`);
+        e.target.reset();
+        return false;
+    }
+</script>
+</body>
+</html>

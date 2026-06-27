@@ -1,0 +1,444 @@
+/**
+ * Returns the value from a URL parameter.
+ *
+ * @param  {string}           name Parameter key.
+ * @return {(string|boolean)}      [false] if no parameter is found.
+ */
+function get_url_param(name) {
+  var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
+    window.location.href
+  );
+  if (results !== null) return results[1] || 0;
+  return false;
+}
+
+/**
+ * All forms.
+ * @type {Object}
+ */
+const forms = $("form");
+
+// GENERAL
+// ------------------------------------------------------------
+
+/**
+ * Apply masks to all fields.
+ */
+forms.each(function () {
+  /* @setup [Masks] */
+  let masks = {
+    phone: {
+      mask: function (val) {
+        return val.replace(/\D/g, "").length === 11
+          ? "(00) 00000-0000"
+          : "(00) 0000-00000";
+      },
+      options: {
+        onKeyPress: function (val, e, field, options) {
+          field.mask(masks.phone.mask.apply({}, arguments), options);
+        },
+      },
+    },
+    date: {
+      simple: {
+        mask: "00/00/00",
+      },
+      detailed: {
+        mask: "00/00/0000",
+      },
+    },
+    time: {
+      mask: "00:00",
+    },
+    zipcode: {
+      mask: "00000-000",
+    },
+  };
+
+  /** @apply */
+  $(this)
+    .find(".field-group")
+    .each(function () {
+      /** Get field information. */
+      let group = $(this);
+      let field = group.find(".field");
+      let mask = group.attr("mask") || false;
+
+      /** @apply */
+      if (mask) {
+        switch (mask) {
+          case "phone":
+            field.mask(masks.phone.mask, masks.phone.options);
+            break;
+          case "date-simple":
+            field.mask(masks.date.simple.mask);
+            break;
+          case "time":
+            field.mask(masks.time.mask);
+            break;
+          case "zipcode":
+            field.mask(masks.zipcode.mask);
+            break;
+        }
+      }
+    });
+});
+
+/**
+ * Change state.
+ */
+forms.find(".field-group .field").each(function () {
+  /** Get field group. */
+  let field = $(this);
+  let group = field.parent();
+
+  /** Add [focus] class. */
+  field.on("focus", () => group.removeClass("invalid").addClass("focus"));
+
+  /** Check for empty field. */
+  field.on("blur", () => {
+    group.removeClass("focus");
+    if (field.val().length === 0) {
+      group.removeClass("not-empty");
+    } else {
+      group.addClass("not-empty");
+    }
+  });
+});
+
+/**
+ * Display filename for [file] inputs.
+ */
+forms.find('.field-group[data-type="file"]').each(function () {
+  /** Get field information. */
+  let parent = $(this);
+  let field = parent.find('input[type="file"]');
+  let label = parent.find("label span");
+
+  /** Listen for change event. */
+  field.on("change", () => {
+    /** Get file name. */
+    let filename = field.val().split("\\").slice(-1)[0];
+
+    /** Check if a file was selected. */
+    if (filename.length === 0) {
+      /** Return field to its initial state. */
+      parent.removeClass("selected");
+      label.text("Nenhum arquivo selecionado");
+    } else {
+      /** Truncate file name. */
+      if (filename.length > 30) filename = filename.substr(0, 30) + "...";
+
+      /** Change field text. */
+      label.text(filename);
+      parent.addClass("selected");
+    }
+  });
+});
+
+// UTILITIES
+// ------------------------------------------------------------
+
+/**
+ * Validates form fields before submit.
+ *
+ * @param  {Object}  form Form element.
+ * @return {Boolean}      Wether the form is valid or not.
+ */
+function form_validate(form) {
+  // console.warn('form_validate()', form);
+
+  /** @declare [Invalid List] */
+  let invalid = [];
+
+  /** @declare [Regex Patterns] */
+  let re = {
+    name: /^[\D\s]+$/,
+    email:
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  };
+
+  /** Remove invalid class from all fields. */
+  form.find(".field-group").removeClass("invalid");
+
+  /** @validate */
+  form.find(".field-group").each(function () {
+    /** Get field information. */
+    let group = $(this);
+    let field = group.find(".field");
+    let value = field.val();
+    value = value.trim();
+    let validation_type = group.attr("valid") || false;
+    let required = group.attr("required") ? true : false;
+
+    /** @validate */
+    if (validation_type) {
+      switch (validation_type) {
+        case "name":
+          if (!re.name.test(value)) {
+            group.addClass("invalid");
+            invalid.push(group);
+          }
+          break;
+        case "email":
+          if (!re.email.test(value)) {
+            group.addClass("invalid");
+            invalid.push(group);
+          }
+          break;
+        case "phone":
+          if (value.length < 14) {
+            group.addClass("invalid");
+            invalid.push(group);
+          }
+          break;
+        case "date":
+          if (value.length != 8) {
+            group.addClass("invalid");
+            invalid.push(group);
+          }
+          break;
+        case "time":
+          if (value.length != 5) {
+            group.addClass("invalid");
+            invalid.push(group);
+          }
+          break;
+        case "length":
+          if (value.length < 3) {
+            group.addClass("invalid");
+            invalid.push(group);
+          }
+          break;
+        case "message":
+          if (value.length < 10) {
+            group.addClass("invalid");
+            invalid.push(group);
+          }
+          break;
+      }
+    } else {
+      /** @if [required] == Check value length. */
+      if (required && value.length === 0) {
+        group.addClass("invalid");
+        invalid.push(field);
+      }
+    }
+  });
+
+  /** @return */
+  return invalid.length == 0;
+}
+
+/**
+ * Resets form fields.
+ *
+ * @param {Object} form Form element.
+ */
+function form_reset(form) {
+  form[0].reset();
+  form.find(".field-group").removeClass("invalid not-empty focus");
+  form
+    .find('.field-group[data-type="file"] label span')
+    .text("Nenhum arquivo selecionado");
+}
+
+// SUBMIT
+// ------------------------------------------------------------
+
+/**
+ * Sends form data to CF7.
+ *
+ * @param  {Number}  form_id Form ID.
+ * @param  {Object}  data    Form data.
+ * @param  {Object}  form    Form element.
+ * @return {Promise}         Resolved when finished sending form data.
+ */
+function form_submit__cf7(form_id, data, form) {
+  return new Promise((resolve) => {
+    /** Get UTM. */
+    let utm_source = get_url_param("utm_source") || "";
+    let utm_campaign = get_url_param("utm_campaign") || "";
+    let utm_medium = get_url_param("utm_medium") || "";
+    let utm_content = get_url_param("utm_content") || "";
+
+    /** Leadpower Integration. */
+    console.warn("LeadPower: Sending...");
+    $.ajax({
+      url: "https://painel.leadpower.com.br/api.php",
+      method: "POST",
+      data: {
+        company: "ACR",
+        project: "LP Marina Residence",
+        channel: "CTA",
+        name: data.nome,
+        email: data.email,
+        phone: data.telefone,
+        utm_source: utm_source,
+        utm_campaign: utm_campaign,
+        utm_medium: utm_medium,
+        utm_content: utm_content,
+        email_list: ["daiverson.ferrari@imovel-cia.com.br", "claudio@acrjf.com.br"],
+      },
+      dataType: "json",
+      success: (leadpower_response) => {        
+        let ddd = data.telefone.split(' ')[0]
+        let number = data.telefone.split(' ')[1]
+        ddd = ddd.replace('(', '')
+        ddd = ddd.replace(')', '')
+        number = number.replace('-', '')
+
+        console.warn('Anapro: Sending...')
+
+        $.ajax({
+          url: 'https://crm.anapro.com.br/webcrm/webapi/integracao/v2/CadastrarProspect',
+          method: 'POST',
+          dataType: 'json',
+          data: {
+            Key: 'xAfCe6udF301',
+            TagAtalho: '',
+            CampanhaKey: '9CLwyKsiOho1',
+            ProdutoKey: 'sMGBKY9f3UM1',
+            CanalKey: 'E2CZ3Oly5x01',
+            Midia: 'Site',
+            Peca: '',
+            UsuarioEmail: '',
+            GrupoPeca: 'CampanhaPeca',
+            CampanhaPeca: '',
+            PessoaNome: data.nome,
+            PessoaSexo: '',
+            ValidarEmail: 'false',
+            PessoaEmail: data.email,
+            ValidarTelefone: 'false',
+            PessoaTelefones: [
+              {
+                Tipo: 'OUTR',
+                DDD: ddd,
+                Numero: number,
+                Ramal: null,
+              },
+            ],
+            Observacoes: '',
+            KeyExterno: '',
+            UsarKeyExterno: 'false',
+            KeyIntegradora: 'f259e6c1-b2c8-4db7-8389-8f89f9932bfc',
+            KeyAgencia: '6576D955-ED1A-4E6B-9BBC-7C8E30A48E20',
+          },
+          success: (response) => {
+            console.warn('Anapro: Success.')
+
+            setTimeout(function () {
+              const [url] = window.location.href.split("?");
+              setTimeout(() => (window.location.href = `${url}obrigado/`), 1500);
+
+              /** Resolve promise. */
+              setTimeout(() => resolve(true), 500);
+            }, 2000);
+          },
+          error: (err) => {
+            console.warn('Anapro: Error.', err)
+          },
+        })
+
+        if (leadpower_response.status === "success") {
+          console.warn("LeadPower: Success.");
+        } else {
+          console.warn("LeadPower: Error.", leadpower_response);
+        }
+      },
+    });
+  });
+}
+/**
+ * Submits a form.
+ *
+ * @param  {Numeber} form_id Form ID.
+ * @param  {Object}  form    Form element.
+ * @return {Promise}         Resolved when the action is finished.
+ */
+function form_submit(form_id, form) {
+  // console.warn('form_submit()', form_id, form);
+
+  /** @declare [Main] */
+  let submit = form.find(".form-submit button");
+  let data = {};
+
+  /** Loop through fields to setup [data]. */
+  form.find(".field-group").each(function () {
+    let name = $(this).data("name");
+    let value = $(this).find(".field").val();
+    data[name] = value;
+  });
+
+  /** Loop through hidden fields to setup [data]. */
+  form.find('input[type="hidden"]').each(function () {
+    let name = $(this).attr("name");
+    let value = $(this).val();
+    data[name] = value;
+  });
+
+  /** Check for file inputs. */
+  let file_upload = false;
+  form.find('.field-group[data-type="file"]').each(function () {
+    /** Get field information. */
+    let name = $(this).data("name");
+    let value = $(this).find(".field")[0].files[0];
+
+    /** Setup object. */
+    let file = {
+      name: name,
+      info: value,
+    };
+
+    /** @push */
+    file_upload = file;
+  });
+
+  /** @request */
+  return new Promise((resolve) => {
+    /** @progress */
+    let progress = progress_screen("Cadastrando informações...");
+
+    /** Send form data to CF7. */
+    form_submit__cf7(form_id, data, form).then((sent) => {
+      if (sent) {
+        progress.trigger("close", "Informações enviadas com sucesso!");
+        setTimeout(() => resolve(true), 1000);
+      } else {
+        progress.trigger("close", "Erro ao enviar as informações!");
+        setTimeout(() => resolve(false), 1000);
+      }
+    });
+  });
+}
+
+/**
+ * Bind submit event to CF7 forms.
+ */
+$("form").on("submit", function (e) {
+  e.preventDefault();
+
+  /** @declare [Main] */
+  let form = $(this);
+  let form_id = Number(form.attr("cf7"));
+
+  /** Disable form. */
+  if (form.is(".disabled")) return false;
+  form.addClass("disabled");
+
+  /** @validate && @submit */
+  if (form_validate(form)) {
+    form_submit(form_id, form).then((sent) => {
+      form.removeClass("disabled");
+      if (!sent) console.error("Error submitting the form.");
+
+      /** Check for parent modal. */
+      if (form.parents(".modal").length !== 0) {
+        let modal_key = form.parents(".modal").data("key");
+        modal_close(modal_key, 0);
+      }
+    });
+  } else {
+    form.removeClass("disabled");
+  }
+});

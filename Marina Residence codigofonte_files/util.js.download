@@ -1,0 +1,343 @@
+/** Download presentation. */
+$(document).ready(() => {
+  if (window.location.href.indexOf('obrigado') !== -1) {
+    $('#presentation').get(0).click();
+  }
+});
+
+var purecookieTitle = "Cookies e Privacidade.",
+  purecookieDesc =
+    "Esse site usa cookies para proporcionar uma melhor experiência. ao continuar navegando, você aceita nossa.",
+  purecookieLink = '<a href="#open-modal">Política de Privacidade.</a>',
+  purecookieButton = "Concordo";
+
+function pureFadeIn(e, o) {
+  var i = document.getElementById(e);
+  (i.style.opacity = 0),
+    (i.style.display = o || "block"),
+    (function e() {
+      var o = parseFloat(i.style.opacity);
+      (o += 0.02) > 1 || ((i.style.opacity = o), requestAnimationFrame(e));
+    })();
+}
+
+function pureFadeOut(e) {
+  var o = document.getElementById(e);
+  (o.style.opacity = 1),
+    (function e() {
+      (o.style.opacity -= 0.02) < 0
+        ? (o.style.display = "none")
+        : requestAnimationFrame(e);
+    })();
+}
+
+function setCookie(e, o, i) {
+  var t = "";
+  if (i) {
+    var n = new Date();
+    n.setTime(n.getTime() + 24 * i * 60 * 60 * 1e3),
+      (t = "; expires=" + n.toUTCString());
+  }
+  document.cookie = e + "=" + (o || "") + t + "; path=/";
+}
+
+function getCookie(e) {
+  for (
+    var o = e + "=", i = document.cookie.split(";"), t = 0;
+    t < i.length;
+    t++
+  ) {
+    for (var n = i[t]; " " == n.charAt(0); ) n = n.substring(1, n.length);
+    if (0 == n.indexOf(o)) return n.substring(o.length, n.length);
+  }
+  return null;
+}
+
+function eraseCookie(e) {
+  document.cookie = e + "=; Max-Age=-99999999;";
+}
+
+function cookieConsent() {
+  getCookie("purecookieDismiss") ||
+    ((document.body.innerHTML +=
+      '<div class="cookieConsentContainer" id="cookieConsentContainer"><div class="cookieTitle"><a>' +
+      purecookieTitle +
+      '</a></div><div class="cookieDesc"><p>' +
+      purecookieDesc +
+      " " +
+      purecookieLink +
+      '</p></div><div class="cookieButton"><a onClick="purecookieDismiss();">' +
+      purecookieButton +
+      "</a></div></div>"),
+    pureFadeIn("cookieConsentContainer"));
+}
+
+function purecookieDismiss() {
+  setCookie("purecookieDismiss", "1", 7), pureFadeOut("cookieConsentContainer");
+}
+
+window.onload = cookieConsent();
+
+/**
+ * Setup scroll to top action.
+ */
+$('[rel="scroll-to-top"]').on("click", () =>
+  $("body, html").animate({ scrollTop: 0 }, 3000, $.bez([0.5, 0, 0, 1]))
+);
+
+/**
+ * Anchor links.
+ */
+$('[rel="anchor"]').on("click", function () {
+  /** Get anchor information. */
+  let section_key = $(this).attr("anchor-to");
+  let section = $('[anchor-key="' + section_key + '"]');
+  let offset = section.offset().top;
+
+  /** Scroll window to section. */
+  $("html, body").animate(
+    { scrollTop: offset - 120 },
+    3000,
+    $.bez([0.5, 0, 0, 1])
+  );
+});
+
+/**
+ * Displays a progress screen.
+ *
+ * @param {string} message Message to be displayed while the progress is still going.
+ */
+function progress_screen(message) {
+  /** @setup [Screen] */
+  let screen_html =
+    "" +
+    '<div class="screen-progress">' +
+    '<h2 class="screen-message">' +
+    message +
+    "</h2>" +
+    '<div class="spinner">' +
+    "<span></span><span></span>" +
+    "</div>" +
+    "</div>";
+  let screen = $(screen_html);
+
+  /** Add shadow to main body. */
+  $("body").addClass("shadow");
+
+  /** Append screen to main body. */
+  $("body").append(screen);
+
+  /** Display screen. */
+  setTimeout(() => screen.addClass("open"), 300);
+
+  /** Bind event to close. */
+  screen.on("close", function (e, message) {
+    if (message) {
+      screen.find(".screen-message").text(message);
+      setTimeout(() => {
+        screen.removeClass("open");
+        setTimeout(() => {
+          screen.remove();
+          $("body").removeClass("shadow");
+        }, 1000);
+      }, 1000);
+    } else {
+      screen.removeClass("open");
+      setTimeout(() => {
+        screen.remove();
+        $("body").removeClass("shadow");
+      }, 1000);
+    }
+  });
+
+  /** @return */
+  return screen;
+}
+
+/**
+ * Makes elements appear as the user scrolls down.
+ */
+function appear() {
+  /** Get main variables. */
+  let vh = $(window).height();
+  let scroll = window.scrollY;
+
+  /** @setup */
+  $("[appear]").each(function () {
+    let el = $(this);
+
+    /** Get element position in which the event should be triggered. */
+    let on = el.attr("appear");
+    if (on.indexOf("vh") != -1) {
+      on = vh / (100 / parseInt(on.replace("vh", "")));
+    } else {
+      on = Number(on);
+    }
+
+    /** Get additional options. */
+    let delay = el.attr("appear-delay") ? Number(el.attr("appear-delay")) : 0;
+    let delay_target = el.attr("appear-target-delay")
+      ? Number(el.attr("appear-target-delay"))
+      : 0;
+    let done = el.attr("appear-done") ? Number(el.attr("appear-done")) : false;
+
+    /** Get offset from top. */
+    let offset = el.offset().top;
+
+    // TARGET (?)
+    // ----------------------------------------
+
+    /** Check for a target key. */
+    let target_key = el.attr("appear-target");
+    if (target_key) {
+      if (scroll + vh > offset + on) {
+        let targets = el.find('[appear-key="' + target_key + '"]');
+
+        /** Loop through each target. */
+        setTimeout(() => {
+          targets.each(function (index, item) {
+            /** Get item information. */
+            item = $(item);
+            let this_delay = index * delay_target;
+
+            /** Trigger appear. */
+            setTimeout(() => {
+              $(item).addClass("appear");
+              $(item).trigger("appear");
+
+              setTimeout(() => $(item).addClass("done"), 10);
+            }, this_delay);
+          });
+        }, delay);
+      }
+      return;
+    }
+
+    // TRIGGER
+    // ----------------------------------------
+
+    /** Add class when the event is triggered. */
+    setTimeout(function () {
+      if (scroll + vh > offset + on) el.trigger("appear").addClass("appear");
+
+      /** Done. */
+      if (done) setTimeout(() => el.addClass("appear-done"), done);
+    }, delay);
+  });
+}
+$(window).on("entered", () => appear());
+$(window).on("scroll", () => appear());
+
+// WORDPRESS
+// ----------------------------------------
+
+/**
+ * Uploads a file to the server.
+ *
+ * @param  {Object}  file File to be uploaded.
+ * @return {Promise}      Resolved with the file URL.
+ */
+function ajax_upload_file(file) {
+  return new Promise((resolve) => {
+    /** @setup [Request] */
+    let data = new FormData();
+    data.append("action", "upload_file");
+    data.append("file", file.info);
+
+    /** @request */
+    $.ajax({
+      url: window.ajaxurl,
+      method: "POST",
+      data: data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: (response) => {
+        if (response.status === "error") {
+          resolve(false);
+        } else {
+          resolve(response.file_url);
+        }
+      },
+      error: (error) => resolve(false),
+    });
+  });
+}
+
+// LOCATION
+// ----------------------------------------
+
+/**
+ * Get user's location from their IP address.
+ *
+ * @param {Function} callback Callback for when it's finished.
+ */
+function get_user_location(callback) {
+  /** @request */
+  $.ajax({
+    url: "http://ip-api.com/json",
+    method: "GET",
+    success: (response) => {
+      if (response.status === "success") {
+        callback(response);
+      } else {
+        callback(false);
+      }
+    },
+    error: (error) => callback(false),
+  });
+}
+
+const gallery = $("#images-gallery");
+
+gallery.find(".plantas__items").owlCarousel({
+  items: 1,
+  nav: false,
+  dots: true,
+  loop: true,
+  autoHeight: true,
+});
+
+gallery
+  .find(".plantas__navigation .arrow .arrow__button")
+  .on("click", function () {
+    const { direction } = this.dataset;
+    gallery.find(".plantas__items").trigger(`${direction}.owl.carousel`);
+  });
+
+const galleryPlantas = $("#images-gallery-plantas");
+
+galleryPlantas.find(".image-plantas__items").owlCarousel({
+  items: 1,
+  nav: false,
+  dots: true,
+  loop: true,
+  autoHeight: true,
+});
+
+galleryPlantas
+  .find(".image-plantas__navigation .arrow .arrow__button")
+  .on("click", function () {
+    const { direction } = this.dataset;
+    galleryPlantas
+      .find(".image-plantas__items")
+      .trigger(`${direction}.owl.carousel`);
+  });
+
+const status = $("#status-gallery");
+
+status.find(".status__items").owlCarousel({
+  items: 1,
+  nav: false,
+  dots: true,
+  loop: true,
+  autoHeight: true,
+});
+
+status
+  .find(".status__navigation .arrow .arrow__button")
+  .on("click", function () {
+    const { direction } = this.dataset;
+    status.find(".status__items").trigger(`${direction}.owl.carousel`);
+  });

@@ -1,0 +1,48 @@
+
+class PageController {
+
+  /** @construct */
+  constructor() {
+
+    /** Get this page. */
+    this.thePage = $("main.page");
+    this.thePageKey = this.thePage.attr("key");
+  }
+
+  /**
+   * Retrieves a specific section in the current page.
+   *
+   * @param  {string} key Section key.
+   *
+   * @return {Object}     Section element, if found.
+   */
+  section(key) {
+
+    /** Attempt to find the specified section. */
+    let section = this.currentPage.find('.section[key="'+key+'"]');
+    return (section.length !== 0) ? section : false;
+  }
+}
+
+/** @inst: Page controller. */
+const pageCtrl = new PageController();
+
+// MAIN ACTION
+// ----------------------------------------
+
+/**
+ * Pages list.
+ * @type {Object}
+ */
+const pages_list = {}
+
+/** Check for page controller. */
+if (typeof pages_list[pageCtrl.currentPageKey] !== "undefined") {
+
+  /** Create a new instance for the current page. */
+  const Page = new pages_list[pageCtrl.currentPageKey];
+
+  /** @init */
+  Page.init();
+  console.warn('Page %c'+Page.pageTitle+' %chas initialized.', 'font-weight: bold;', 'font-weight: normal;');
+}

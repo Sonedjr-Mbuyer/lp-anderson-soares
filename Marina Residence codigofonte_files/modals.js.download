@@ -1,0 +1,89 @@
+
+/**
+ * Specific modals.
+ * @type {Object}
+ */
+const m = {}
+
+// Main actions
+// ----------------------------------------------------------------------------
+
+/**
+ * Opensa  modal and triggers entrances.
+ *
+ * @param {string} key Modal key.
+ */
+function modal_open(key) {
+
+  /** Get modal information. */
+  let modal = $('.modal[data-key="'+key+'"]');
+  let special_entrances = modal.find('[modal-entrance]');
+
+  /** Open modal. */
+  $('body').addClass('modal-open');
+  modal.addClass('open');
+
+  /** Animate entrances. */
+  special_entrances.each(function() {
+    let delay = Number($(this).attr('modal-entrance'));
+    setTimeout(() => $(this).addClass('entered').trigger('entered'), delay);
+  })
+}
+
+/**
+ * Closes a modal.
+ *
+ * @param {string} key Modal key.
+ */
+function modal_close(key) {
+
+  /** Get modal information. */
+  let modal = $('.modal[data-key="'+key+'"]');
+
+  /** Check for waiting time. */
+  let departure_time = Number(modal.attr('departure')) || 0;
+
+  /** Deactivate entrance elements. */
+  modal.find('.entered').each(function() {
+
+    /** Get element. */
+    let el = $(this);
+
+    /** Check for disabled departure animation. */
+    let stay = (el.attr('modal-stay') === 'true') ? 1000 : 0;
+    stay += departure_time;
+
+    /** @disable */
+    setTimeout(() => el.removeClass('entered'), stay);
+  })
+
+  /** Close modal. */
+  setTimeout(() => {
+    modal.removeClass('open');
+    $('body').removeClass('modal-open');
+  }, departure_time);
+}
+
+/**
+ * Bind click to toggle modals state.
+ */
+$('[rel="modal_toggler"]').on('click', function() {
+
+  /** Get modal key. */
+  let key = $(this).data('modal');
+
+  /** Open modal. */
+  modal_open(key);
+})
+
+/**
+ * Close modals.
+ */
+$('.modal [rel="close"]').on('click', function() {
+
+  /** Get modal key. */
+  let key = $(this).parents('.modal').data('key');
+
+  /** Close modal. */
+  modal_close(key);
+})
