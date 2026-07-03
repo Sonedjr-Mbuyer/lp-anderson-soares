@@ -936,7 +936,21 @@
             .corretor-v2-left { flex-direction: row; flex-wrap: wrap; justify-content: center; }
             .plantas-precos { grid-template-columns: 1fr; }
             .preco-sep { height: 1px; width: 100%; }
-            .ng-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; }
+            /* Abas da galeria: carrossel horizontal deslizável */
+            .gal-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                scroll-snap-type: x proximity;
+            }
+            .gal-tabs::-webkit-scrollbar { display: none; }
+            .gal-tab { flex-shrink: 0; scroll-snap-align: start; }
+            /* Grid da galeria: 1 foto por linha, largura total */
+            .ng-grid { grid-template-columns: 1fr; grid-auto-rows: min(68vw, 420px); }
+            .ng-grid .g-item:first-child { grid-column: span 1; grid-row: span 1; }
+            /* WhatsApp flutuante acima do conteúdo inferior */
+            #wa-float { bottom: 80px; }
             .map-info { grid-template-columns: 1fr; }
             .form-grid { grid-template-columns: 1fr; }
             .ft-inner { grid-template-columns: 1fr; }
@@ -946,7 +960,6 @@
             .hero-agent-strip { max-width: 100%; }
         }
         @media (max-width: 520px) {
-            .ng-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; }
             .corretor-v2-left { flex-direction: column; align-items: center; }
             .avatar-lg { width: 180px; height: 180px; }
             .hero-actions { flex-direction: column; }
