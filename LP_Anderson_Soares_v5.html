@@ -240,22 +240,24 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(
-                120deg,
-                rgba(1,42,49,.88) 0%,
-                rgba(1,42,49,.62) 55%,
-                rgba(1,42,49,.18) 100%
+                180deg,
+                rgba(1,42,49,.80) 0%,
+                rgba(1,42,49,.55) 50%,
+                rgba(1,42,49,.82) 100%
             );
         }
-        /* Grid hero 2 colunas: texto + vídeo */
-        .hero-grid {
+        /* Conteúdo do hero centralizado em coluna única */
+        .hero-inner {
             position: relative;
             z-index: 2;
-            display: grid;
-            grid-template-columns: 1fr 500px;
-            gap: clamp(32px, 5vw, 64px);
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            padding-top: 90px;
-            padding-bottom: 60px;
+            text-align: center;
+            max-width: 920px;
+            margin: 0 auto;
+            padding-top: 110px;
+            padding-bottom: 96px;
         }
         .hero-eyebrow {
             display: inline-flex;
@@ -292,8 +294,8 @@
             font-weight: 300;
             color: rgba(255,255,255,.8);
             line-height: 1.7;
-            margin-bottom: 34px;
-            max-width: 500px;
+            margin: 0 auto 34px;
+            max-width: 560px;
         }
         .hero-sub strong { font-weight: 600; color: var(--gold); }
 
@@ -301,10 +303,11 @@
         .hero-precos {
             display: flex;
             align-items: stretch;
-            gap: clamp(24px, 3.5vw, 44px);
-            margin-bottom: 36px;
+            justify-content: center;
+            gap: clamp(28px, 4vw, 56px);
+            margin-bottom: 44px;
         }
-        .hp-item { display: flex; flex-direction: column; }
+        .hp-item { display: flex; flex-direction: column; align-items: center; }
         .hp-tipo {
             font-size: 12px;
             font-weight: 600;
@@ -329,11 +332,10 @@
             line-height: 1;
         }
         .hp-sep { width: 1px; background: rgba(226,205,173,.28); }
-        .btn-hero-wa { font-size: 15px; padding: 17px 36px; }
 
         /* Vídeo do empreendimento no hero (16:9, sem autoplay) */
         .hero-video {
-            width: 100%;
+            width: min(640px, 100%);
             aspect-ratio: 16 / 9;
             background: #000;
             box-shadow: 0 16px 56px rgba(0,0,0,.42);
@@ -887,13 +889,12 @@
 
         /* ===== RESPONSIVO ===== */
         @media (max-width: 1024px) {
-            .hero-grid { grid-template-columns: 1fr 420px; }
             .corretor-v2-grid { grid-template-columns: 260px 1fr; }
             .corretor-v2-left { position: static; }
             .ng-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 768px) {
-            .hero-grid { grid-template-columns: 1fr; padding-bottom: 40px; }
+            .hero-inner { padding-top: 96px; padding-bottom: 72px; }
             .numbers-grid { grid-template-columns: repeat(2,1fr); }
             .n-item:nth-child(2) { border-right: none; }
             .n-item:nth-child(3),.n-item:nth-child(4) { border-top: 1px solid rgba(226,205,173,.12); }
@@ -929,7 +930,6 @@
             /* Preços do hero empilhados em telas estreitas */
             .hero-precos { flex-direction: column; gap: 18px; }
             .hp-sep { width: 100%; height: 1px; }
-            .btn-hero-wa { width: 100%; }
         }
     </style>
 </head>
@@ -973,41 +973,31 @@
     </div>
     <div class="hero-overlay"></div>
     <div class="container">
-        <div class="hero-grid">
+        <div class="hero-inner">
 
-            <!-- Esquerda: "Pronto para morar" dominante + preços + CTA -->
-            <div class="hero-body">
-                <span class="hero-eyebrow">Marina Residence · Alto dos Passos, Juiz de Fora</span>
-                <h1 class="hero-h1">
-                    Pronto para<br><em>morar</em>
-                </h1>
-                <p class="hero-sub">
-                    <strong>Unidades finalizadas à venda</strong> na Av. Barão do Rio Branco,
-                    o endereço mais desejado de Juiz de Fora.
-                </p>
-                <div class="hero-precos">
-                    <div class="hp-item">
-                        <span class="hp-tipo">3 Quartos</span>
-                        <span class="hp-label">a partir de</span>
-                        <span class="hp-valor">R$ 1.279.000</span>
-                    </div>
-                    <div class="hp-sep"></div>
-                    <div class="hp-item">
-                        <span class="hp-tipo">2 Quartos</span>
-                        <span class="hp-label">a partir de</span>
-                        <span class="hp-valor">R$ 919.000</span>
-                    </div>
+            <span class="hero-eyebrow">Marina Residence · Alto dos Passos, Juiz de Fora</span>
+            <h1 class="hero-h1">
+                Pronto para<br><em>morar</em>
+            </h1>
+            <p class="hero-sub">
+                <strong>Unidades finalizadas à venda</strong> na Av. Barão do Rio Branco,
+                o endereço mais desejado de Juiz de Fora.
+            </p>
+            <div class="hero-precos">
+                <div class="hp-item">
+                    <span class="hp-tipo">3 Quartos</span>
+                    <span class="hp-label">a partir de</span>
+                    <span class="hp-valor">R$ 1.279.000</span>
                 </div>
-                <a href="https://wa.me/553240098000" target="_blank" rel="noopener" class="btn btn-green btn-hero-wa">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.529 5.856L.057 23.875l6.196-1.449A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.518-5.179-1.421l-.371-.22-3.678.86.874-3.595-.241-.389A9.955 9.955 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-                    </svg>
-                    Falar com Anderson no WhatsApp
-                </a>
+                <div class="hp-sep"></div>
+                <div class="hp-item">
+                    <span class="hp-tipo">2 Quartos</span>
+                    <span class="hp-label">a partir de</span>
+                    <span class="hp-valor">R$ 919.000</span>
+                </div>
             </div>
 
-            <!-- Direita: vídeo do empreendimento (16:9, sem autoplay) -->
+            <!-- Vídeo do empreendimento (16:9, sem autoplay) -->
             <div class="hero-video">
                 <iframe
                     src="https://www.youtube.com/embed/Rkh85oMoVg0?rel=0"
