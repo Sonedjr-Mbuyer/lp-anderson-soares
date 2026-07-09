@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit de Landing Page — Anderson Soares Imóveis</title>
+    <meta name="description" content="Kit de entrega e guia de uso do template de landing page de alto padrão — Anderson Soares Imóveis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════
+           KIT DE ENTREGA — mesma identidade visual da LP
+           Paleta, fontes e formas seguem o padrão do
+           CLAUDE_Skill_imobaltopadrao.md
+        ═══════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--ink);
+            background: var(--offwhite);
+            line-height: 1.7;
+        }
+        img { max-width: 100%; display: block; }
+        a { color: inherit; }
+
+        :root {
+            --dark:       #012A31;  /* verde-petróleo profundo */
+            --dark-hover: #023540;
+            --dark-rgb:   1, 42, 49;
+            --gold:       #E2CDAD;  /* champagne / dourado envelhecido */
+            --gold-dark:  #C9B08A;
+            --gold-rgb:   226, 205, 173;
+            --cream:      #F5F0E8;  /* off-white quente */
+            --offwhite:   #F9F7F3;  /* fundo da página */
+            --ink:        #1C2B2D;  /* texto principal */
+            --muted:      #5A6E71;  /* texto secundário */
+            --wa:         #25D366;  /* verde WhatsApp */
+            --pad:        clamp(56px, 8vw, 104px);
+            --wrap:       1080px;
+        }
+
+        .container {
+            max-width: var(--wrap);
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 56px);
+        }
+
+        /* ── Tipografia auxiliar ── */
+        .eyebrow {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+            margin-bottom: 14px;
+        }
+        .eyebrow.light { color: var(--gold); }
+        h2.headline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 4vw, 46px);
+            font-weight: 700;
+            line-height: 1.13;
+            color: var(--dark);
+        }
+        h2.headline.light { color: #fff; }
+        .rule {
+            width: 48px; height: 2px;
+            background: var(--gold);
+            margin: 20px 0 32px;
+        }
+        .lead {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--muted);
+            max-width: 640px;
+        }
+
+        /* ── Capa ── */
+        #capa {
+            background: var(--dark);
+            padding: clamp(80px, 12vw, 150px) 0 var(--pad);
+            position: relative;
+            overflow: hidden;
+        }
+        #capa::after { /* filete dourado na base, mesmo gesto da barra do corretor */
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--dark) 100%);
+        }
+        .capa-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 26px;
+        }
+        .capa-eyebrow::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: #5FCF80;
+            border-radius: 50%;
+        }
+        #capa h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(40px, 6vw, 76px);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.02;
+            max-width: 820px;
+            margin-bottom: 26px;
+        }
+        #capa h1 em { font-style: italic; color: var(--gold); }
+        .capa-sub {
+            font-size: clamp(15px, 1.8vw, 17px);
+            font-weight: 300;
+            color: rgba(255,255,255,.78);
+            max-width: 640px;
+            margin-bottom: 40px;
+        }
+        .capa-sub strong { font-weight: 600; color: var(--gold); }
+        .capa-nav { display: flex; flex-wrap: wrap; gap: 10px; }
+        .capa-nav a {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(var(--gold-rgb),.35);
+            padding: 11px 20px;
+            text-decoration: none;
+            transition: background .2s, color .2s;
+        }
+        .capa-nav a:hover { background: var(--gold); color: var(--dark); }
+
+        /* ── Seções ── */
+        section { padding: var(--pad) 0; }
+        section.dark { background: var(--dark); }
+        section.cream { background: var(--cream); }
+        section.white { background: #fff; }
+
+        .sec-head { margin-bottom: 44px; }
+        .sec-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15px;
+            font-style: italic;
+            color: var(--gold-dark);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* ── Configuração rápida ── */
+        .cfg-list { display: flex; flex-direction: column; }
+        .cfg-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: clamp(20px, 4vw, 48px);
+            padding: 28px 0;
+            border-bottom: 1px solid rgba(var(--dark-rgb),.12);
+        }
+        .cfg-item:first-child { border-top: 2px solid var(--dark); }
+        .cfg-what {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        .cfg-how { font-size: 14px; color: var(--muted); }
+        .cfg-how p { margin-bottom: 8px; }
+        .cfg-how p:last-child { margin-bottom: 0; }
+        .cfg-how strong { color: var(--ink); font-weight: 600; }
+        .tag-find {
+            display: inline-block;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 12.5px;
+            background: var(--cream);
+            border: 1px solid rgba(var(--dark-rgb),.15);
+            color: var(--dark);
+            padding: 2px 8px;
+            white-space: nowrap;
+        }
+        .cfg-note {
+            margin-top: 32px;
+            background: var(--cream);
+            border-left: 3px solid var(--gold);
+            padding: 18px 24px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+        .cfg-note strong { color: var(--dark); }
+
+        /* ── Guia de componentes ── */
+        .comp-block { margin-bottom: 72px; }
+        .comp-block:last-child { margin-bottom: 0; }
+        .comp-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(22px, 2.6vw, 30px);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+        .comp-desc { font-size: 14px; color: var(--muted); margin-bottom: 24px; max-width: 620px; }
+
+        /* Palco de demonstração */
+        .stage {
+            border: 1px solid rgba(var(--dark-rgb),.14);
+            background: #fff;
+            padding: clamp(28px, 4vw, 48px);
+        }
+        .stage.on-dark { background: var(--dark); }
+
+        /* Bloco de código copiável */
+        .codebox { position: relative; margin-top: 0; }
+        .codebox pre {
+            background: #04191D;
+            color: #D8E2E0;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 12.5px;
+            line-height: 1.7;
+            padding: 22px 24px;
+            overflow-x: auto;
+        }
+        .codebox .copy-btn {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(var(--gold-rgb),.12);
+            border: 1px solid rgba(var(--gold-rgb),.4);
+            color: var(--gold);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 7px 14px;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+        .codebox .copy-btn:hover { background: var(--gold); color: var(--dark); }
+        .codebox .copy-btn.ok { background: var(--wa); border-color: var(--wa); color: #fff; }
+
+        /* Paleta */
+        .swatches {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 4px;
+        }
+        .swatch { border: 1px solid rgba(var(--dark-rgb),.12); }
+        .swatch-color { height: 110px; }
+        .swatch-info { background: #fff; padding: 12px 14px; }
+        .swatch-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            display: block;
+        }
+        .swatch-hex {
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .swatch-use { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; line-height: 1.45; }
+
+        /* Testador de paleta */
+        .tester {
+            margin-top: 28px;
+            background: #fff;
+            border: 1px solid rgba(var(--dark-rgb),.14);
+            border-top: 2px solid var(--dark);
+            padding: clamp(24px, 3.5vw, 40px);
+        }
+        .tester-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        .tester-desc { font-size: 14px; color: var(--muted); max-width: 680px; margin-bottom: 24px; }
+        .picker-row { display: flex; flex-wrap: wrap; gap: clamp(20px, 4vw, 48px); margin-bottom: 22px; }
+        .picker { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .picker-role {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dark);
+        }
+        .picker input[type="color"] {
+            width: 58px; height: 40px;
+            padding: 2px;
+            border: 1px solid rgba(var(--dark-rgb),.25);
+            border-radius: 2px;
+            background: #fff;
+            cursor: pointer;
+        }
+        .picker-hex {
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+        .tester-rules {
+            font-size: 13px;
+            color: var(--muted);
+            background: var(--cream);
+            border-left: 3px solid var(--gold);
+            padding: 14px 20px;
+            max-width: 720px;
+            margin-bottom: 24px;
+        }
+        .tester-rules strong { color: var(--dark); }
+        .tester-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+        .tester-actions .btn.ok { background: var(--wa); color: #fff; }
+        .tester-reset {
+            background: none;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+        }
+        .tester-reset:hover { color: var(--dark); }
+
+        /* Tipografia demo */
+        .type-row {
+            display: grid;
+            grid-template-columns: 190px 1fr;
+            gap: clamp(20px, 4vw, 44px);
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(var(--dark-rgb),.1);
+            align-items: center;
+        }
+        .type-row:last-child { border-bottom: none; }
+        .type-spec {
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 11.5px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .t-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(34px, 4.5vw, 56px);
+            font-weight: 700;
+            line-height: 1.02;
+            color: var(--dark);
+        }
+        .t-display em { font-style: italic; color: var(--gold-dark); }
+        .t-headline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(24px, 3vw, 34px);
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.15;
+        }
+        .t-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+        }
+        .t-body { font-size: 15px; font-weight: 300; color: var(--muted); max-width: 520px; }
+        .t-body strong { font-weight: 600; color: var(--ink); }
+
+        /* ── Componentes reproduzidos da LP (para o palco) ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .4px;
+            padding: 15px 32px;
+            border-radius: 1px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background .2s, color .2s, transform .15s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-gold        { background: var(--gold);  color: var(--dark); }
+        .btn-gold:hover  { background: var(--gold-dark); }
+        .btn-dark        { background: var(--dark);  color: #fff; }
+        .btn-dark:hover  { background: var(--dark-hover); }
+        .btn-green       { background: var(--wa); color: #fff; }
+        .btn-green:hover { background: #1DAA57; }
+        .btn svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+        .btn-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: #5FCF80;
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+        .hero-precos {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: clamp(28px, 4vw, 56px);
+        }
+        .hp-item { display: flex; flex-direction: column; align-items: center; }
+        .hp-tipo {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 7px;
+        }
+        .hp-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.5);
+            margin-bottom: 5px;
+        }
+        .hp-valor {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(30px, 3.6vw, 46px);
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .hp-sep { width: 1px; background: rgba(var(--gold-rgb),.28); }
+
+        /* Mini-seção do corretor (demo) */
+        .demo-corretor {
+            display: grid;
+            grid-template-columns: 170px 1fr;
+            gap: clamp(24px, 4vw, 44px);
+            align-items: start;
+        }
+        .avatar-lg {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--dark);
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-lg svg { width: 64px; height: 64px; fill: var(--gold-dark); }
+        .demo-corretor-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(26px, 3.2vw, 36px);
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.05;
+            margin-bottom: 12px;
+        }
+        .corretor-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+        .c-tag {
+            background: var(--dark);
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            text-transform: uppercase;
+        }
+        .corretor-pullquote {
+            border-left: 3px solid var(--gold);
+            padding: 14px 20px;
+            background: var(--cream);
+            margin-bottom: 16px;
+        }
+        .corretor-pullquote p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-style: italic;
+            color: var(--dark);
+            line-height: 1.55;
+        }
+        .demo-bio { font-size: 14px; color: var(--muted); line-height: 1.8; }
+        .demo-bio strong { color: var(--dark); font-weight: 600; }
+
+        /* ── Passo a passo de publicação ── */
+        .steps { counter-reset: passo; display: flex; flex-direction: column; }
+        .step {
+            display: grid;
+            grid-template-columns: 76px 1fr;
+            gap: clamp(18px, 3vw, 36px);
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(var(--gold-rgb),.16);
+        }
+        .step:last-child { border-bottom: none; }
+        .step::before {
+            counter-increment: passo;
+            content: counter(passo, decimal-leading-zero);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 44px;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .step h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .step p { font-size: 14px; color: rgba(255,255,255,.72); margin-bottom: 8px; max-width: 660px; }
+        .step p:last-child { margin-bottom: 0; }
+        .step strong { color: var(--gold); font-weight: 600; }
+        .step .tag-find {
+            background: rgba(var(--gold-rgb),.1);
+            border-color: rgba(var(--gold-rgb),.35);
+            color: var(--gold);
+        }
+        .step-warn {
+            margin-top: 10px;
+            border-left: 3px solid var(--gold);
+            background: rgba(var(--gold-rgb),.08);
+            padding: 12px 18px;
+            font-size: 13px;
+            color: rgba(255,255,255,.75);
+            max-width: 660px;
+        }
+
+        /* ── Checklist ── */
+        .check-group { margin-bottom: 44px; }
+        .check-group:last-child { margin-bottom: 0; }
+        .check-group-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--dark);
+            margin-bottom: 4px;
+        }
+        .check-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(var(--dark-rgb),.1);
+            cursor: pointer;
+        }
+        .check-item input {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px; height: 20px;
+            min-width: 20px;
+            margin-top: 2px;
+            border: 1.5px solid var(--dark);
+            border-radius: 2px;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .15s;
+        }
+        .check-item input:checked { background: var(--dark); }
+        .check-item input:checked::after {
+            content: '';
+            width: 10px; height: 10px;
+            background: var(--gold);
+            clip-path: polygon(14% 44%, 0 60%, 40% 100%, 100% 16%, 84% 4%, 38% 70%);
+        }
+        .check-item span { font-size: 14.5px; color: var(--ink); }
+        .check-item input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(90,110,113,.5); }
+        .check-item span strong { font-weight: 600; }
+
+        /* ── Rodapé ── */
+        footer { background: #000D0F; padding: 44px 0; }
+        footer .container { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; }
+        .ft-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .ft-brand em { font-style: italic; color: var(--gold); }
+        .ft-note { font-size: 11px; color: rgba(255,255,255,.32); letter-spacing: .5px; }
+
+        /* ── Responsivo ── */
+        @media (max-width: 768px) {
+            .cfg-item { grid-template-columns: 1fr; gap: 8px; }
+            .type-row { grid-template-columns: 1fr; gap: 8px; }
+            .demo-corretor { grid-template-columns: 1fr; }
+            .step { grid-template-columns: 52px 1fr; }
+            .step::before { font-size: 34px; }
+        }
+        @media (max-width: 520px) {
+            .hero-precos { flex-direction: column; gap: 18px; align-items: center; }
+            .hp-sep { width: 100%; height: 1px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║   CAPA — APRESENTAÇÃO DO KIT    ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<header id="capa">
+    <div class="container">
+        <span class="capa-eyebrow">Kit de entrega · Template de landing page</span>
+        <h1>Kit de Landing Page —<br><em>Anderson Soares Imóveis</em></h1>
+        <p class="capa-sub">
+            Este documento é o manual de uso do template <strong>LP_Anderson_Soares_v5.html</strong>.
+            Ele reúne tudo que a equipe precisa para lançar a página de um novo empreendimento:
+            o que alterar, os componentes visuais prontos com código copiável, o passo a passo
+            de publicação e o checklist final antes de rodar anúncios. Não é preciso saber
+            programar — basta seguir as instruções na ordem.
+        </p>
+        <nav class="capa-nav">
+            <a href="#configuracao">1 · Configuração rápida</a>
+            <a href="#componentes">2 · Guia de componentes</a>
+            <a href="#publicacao">3 · Publicação</a>
+            <a href="#checklist">4 · Checklist de entrega</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║   1 — CONFIGURAÇÃO RÁPIDA       ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="configuracao" class="white">
+    <div class="container">
+        <div class="sec-head">
+            <span class="sec-num">Seção 01</span>
+            <span class="eyebrow">Configuração rápida</span>
+            <h2 class="headline">O que alterar para lançar<br>um novo empreendimento</h2>
+            <div class="rule"></div>
+            <p class="lead">
+                Abra o arquivo HTML em qualquer editor de texto (recomendamos o
+                <strong>Visual Studio Code</strong>, gratuito) e use <strong>Ctrl+F</strong> para localizar
+                cada item abaixo. Altere um item por vez e salve.
+            </p>
+        </div>
+
+        <div class="cfg-list">
+
+            <!-- Paleta de cores -->
+            <div class="cfg-item">
+                <div class="cfg-what">Paleta de cores</div>
+                <div class="cfg-how">
+                    <p>Toda a paleta fica num único bloco no topo do CSS, marcado com o comentário
+                    <span class="tag-find">PALETA DO EMPREENDIMENTO</span>. Trocando as cores ali,
+                    <strong>a página inteira se reestiliza</strong> — fundos, botões, preços, filetes e transparências.
+                    Não existe cor da identidade fora desse bloco.</p>
+                    <p>Use o <a href="#paleta"><strong>testador de paleta</strong></a> na Seção 02 para experimentar
+                    as cores do novo empreendimento ao vivo e copiar o bloco pronto para colar na LP.
+                    O verde do WhatsApp é fixo e nunca muda.</p>
+                </div>
+            </div>
+
+            <!-- Nome do empreendimento -->
+            <div class="cfg-item">
+                <div class="cfg-what">Nome do empreendimento</div>
+                <div class="cfg-how">
+                    <p>Busque por <span class="tag-find">Marina Residence</span> e substitua <strong>todas as ocorrências</strong>
+                    pelo nome do novo empreendimento (no VS Code: Ctrl+H → "Substituir tudo").</p>
+                    <p>Confira em especial: a aba do navegador (<span class="tag-find">&lt;title&gt;</span>), as meta tags de
+                    compartilhamento, o texto acima do título do hero e a mensagem automática do WhatsApp no
+                    final do arquivo (função <span class="tag-find">submitForm</span>).</p>
+                </div>
+            </div>
+
+            <!-- Vídeo -->
+            <div class="cfg-item">
+                <div class="cfg-what">Vídeo do YouTube</div>
+                <div class="cfg-how">
+                    <p>Busque por <span class="tag-find">youtube.com/embed/</span>. Troque apenas o código do vídeo —
+                    a parte destacada em <span class="tag-find">embed/Rkh85oMoVg0</span> — pelo código do novo vídeo.</p>
+                    <p>O código é o trecho que aparece na URL do YouTube depois de <strong>watch?v=</strong>.
+                    Mantenha o <span class="tag-find">?rel=0</span> no final (evita vídeos de terceiros ao pausar).</p>
+                </div>
+            </div>
+
+            <!-- Preços -->
+            <div class="cfg-item">
+                <div class="cfg-what">Preços das unidades</div>
+                <div class="cfg-how">
+                    <p>Busque por <span class="tag-find">hero-precos</span>. Cada tipologia é um bloco
+                    <span class="tag-find">hp-item</span> com o tipo (ex.: "3 Quartos") e o valor
+                    (ex.: "R$ 1.279.000").</p>
+                    <p>Para adicionar ou remover uma tipologia, duplique ou apague um bloco
+                    <span class="tag-find">hp-item</span> inteiro junto com o divisor <span class="tag-find">hp-sep</span> ao lado.</p>
+                </div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="cfg-item">
+                <div class="cfg-what">Número do WhatsApp</div>
+                <div class="cfg-how">
+                    <p>Busque por <span class="tag-find">553240098000</span> e substitua <strong>todas as ocorrências</strong>
+                    pelo novo número no formato internacional: <strong>55 + DDD + número</strong>, sem espaços,
+                    traços ou parênteses (ex.: <span class="tag-find">5532999998888</span>).</p>
+                    <p>O número aparece nos botões da página <strong>e</strong> na variável
+                    <span class="tag-find">WA_LINK</span> dentro do bloco de JavaScript — o "Substituir tudo" cobre os dois.</p>
+                </div>
+            </div>
+
+            <!-- Corretor -->
+            <div class="cfg-item">
+                <div class="cfg-what">Foto e bio do corretor</div>
+                <div class="cfg-how">
+                    <p><strong>Foto:</strong> salve a nova foto como <span class="tag-find">fotos/anderson-soares.jpeg</span>
+                    (ou troque o nome do arquivo nos dois lugares em que ele aparece: header e seção do corretor).
+                    Use foto quadrada, com o rosto na metade superior.</p>
+                    <p><strong>Bio:</strong> busque por <span class="tag-find">id="corretor"</span> e edite o nome, as tags
+                    (cargo, anos de mercado, especialidade), a citação em destaque e os dois parágrafos de biografia.</p>
+                </div>
+            </div>
+
+            <!-- Fotos -->
+            <div class="cfg-item">
+                <div class="cfg-what">Fotos do empreendimento<br><small style="font-weight:400;font-size:13px;color:var(--muted)">(pasta fotos/)</small></div>
+                <div class="cfg-how">
+                    <p>Coloque as novas fotos na pasta <span class="tag-find">fotos/</span> com nomes <strong>sem espaços
+                    e sem acentos</strong>, minúsculos, com prefixo por galeria: <span class="tag-find">fachada-1.jpg</span>,
+                    <span class="tag-find">lazer-piscina.jpg</span>, <span class="tag-find">apto2q-sala.jpg</span>…</p>
+                    <p>Depois, busque por <span class="tag-find">GALLERIES</span> no bloco de JavaScript e atualize a lista:
+                    cada foto é uma linha <span class="tag-find">{ f: 'arquivo.jpg', c: 'Legenda' }</span>.
+                    O <strong>f</strong> é o nome do arquivo e o <strong>c</strong> é a legenda que aparece na foto.</p>
+                    <p><strong>Importante:</strong> otimize as fotos antes de subir — máximo de 1600px de largura
+                    e cerca de 200KB por arquivo (use tinypng.com ou squoosh.app). Fotos pesadas deixam a página lenta.</p>
+                </div>
+            </div>
+
+            <!-- Logo -->
+            <div class="cfg-item">
+                <div class="cfg-what">Logo do empreendimento</div>
+                <div class="cfg-how">
+                    <p>Busque por <span class="tag-find">logo-marina-residence.png</span> e aponte para o novo arquivo de logo.
+                    Prefira <strong>PNG com fundo transparente</strong>.</p>
+                    <p>O CSS aplica um filtro que deixa a logo branca sobre o fundo escuro
+                    (<span class="tag-find">filter: brightness(0) invert(1)</span>) — se a logo precisar manter as cores originais,
+                    remova esse filtro da classe <span class="tag-find">.h-logo img</span>.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="cfg-note">
+            <strong>Regra de ouro:</strong> altere apenas textos, links e nomes de arquivos.
+            Não mexa na estrutura do HTML nem no CSS sem necessidade — o layout, as animações
+            e o comportamento em celular já estão calibrados e testados.
+        </div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║   2 — GUIA DE COMPONENTES       ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="componentes" class="cream">
+    <div class="container">
+        <div class="sec-head">
+            <span class="sec-num">Seção 02</span>
+            <span class="eyebrow">Guia visual</span>
+            <h2 class="headline">Componentes do template</h2>
+            <div class="rule"></div>
+            <p class="lead">
+                Cada componente abaixo aparece exatamente como na página publicada, com o código HTML
+                logo em seguida — clique em <strong>Copiar</strong> para usar em outra parte da página
+                ou em um novo material.
+            </p>
+        </div>
+
+        <!-- ── Paleta ── -->
+        <div class="comp-block" id="paleta">
+            <h3 class="comp-title">Paleta de cores</h3>
+            <p class="comp-desc">
+                As cores da identidade são <strong>papéis</strong>, não valores fixos: cada empreendimento
+                preenche os mesmos papéis com a sua própria paleta. Na LP, todas as cores vivem num único
+                bloco <span class="tag-find">:root</span> no topo do CSS, marcado com o comentário
+                <strong>PALETA DO EMPREENDIMENTO</strong> — trocando os valores ali, a página inteira se
+                reestiliza. Abaixo, os papéis com os valores atuais (Marina Residence).
+            </p>
+            <div class="swatches">
+                <div class="swatch">
+                    <div class="swatch-color" style="background:var(--dark)"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Primária</span>
+                        <span class="swatch-hex" data-hex="--dark">#012A31</span>
+                        <span class="swatch-use">Fundos escuros, títulos, botões — sempre escura e sóbria</span>
+                    </div>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background:var(--dark-hover)"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Primária · hover</span>
+                        <span class="swatch-hex" data-hex="--dark-hover">#023540</span>
+                        <span class="swatch-use">Estado hover do botão escuro</span>
+                    </div>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background:var(--gold)"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Destaque</span>
+                        <span class="swatch-hex" data-hex="--gold">#E2CDAD</span>
+                        <span class="swatch-use">Preços, eyebrows, filetes — família champagne/dourado/areia</span>
+                    </div>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background:var(--gold-dark)"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Destaque · hover</span>
+                        <span class="swatch-hex" data-hex="--gold-dark">#C9B08A</span>
+                        <span class="swatch-use">Hover do destaque, eyebrows em fundo claro</span>
+                    </div>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background:var(--cream)"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Creme</span>
+                        <span class="swatch-hex" data-hex="--cream">#F5F0E8</span>
+                        <span class="swatch-use">Fundos de seção claros, citações</span>
+                    </div>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background:var(--offwhite)"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Off-white</span>
+                        <span class="swatch-hex" data-hex="--offwhite">#F9F7F3</span>
+                        <span class="swatch-use">Fundo geral da página — nunca #FFF puro</span>
+                    </div>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background:var(--muted)"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Texto secundário</span>
+                        <span class="swatch-hex" data-hex="--muted">#5A6E71</span>
+                        <span class="swatch-use">Legendas e textos de apoio em fundo claro</span>
+                    </div>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background:var(--wa)"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">WhatsApp (fixa)</span>
+                        <span class="swatch-hex">#25D366</span>
+                        <span class="swatch-use">Exclusiva para conversão — não muda entre empreendimentos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testador de paleta -->
+            <div class="tester">
+                <div class="tester-title">Testar a paleta de um novo empreendimento</div>
+                <p class="tester-desc">
+                    Escolha as três cores-base — hovers, transparências, textos e tons derivados são
+                    calculados automaticamente. <strong>Esta página usa as mesmas variáveis da LP</strong>:
+                    ao mexer nas cores, o kit inteiro muda na hora (capa, botões, badge, cards de preço,
+                    seção do corretor). Aprovou o resultado? Copie o bloco pronto e cole por cima do bloco
+                    <span class="tag-find">:root</span> da LP.
+                </p>
+                <div class="picker-row">
+                    <label class="picker">
+                        <span class="picker-role">Primária</span>
+                        <input type="color" id="pick-dark" value="#012A31" oninput="onPick()">
+                        <span class="picker-hex" id="hex-pick-dark">#012A31</span>
+                    </label>
+                    <label class="picker">
+                        <span class="picker-role">Destaque</span>
+                        <input type="color" id="pick-gold" value="#E2CDAD" oninput="onPick()">
+                        <span class="picker-hex" id="hex-pick-gold">#E2CDAD</span>
+                    </label>
+                    <label class="picker">
+                        <span class="picker-role">Creme</span>
+                        <input type="color" id="pick-cream" value="#F5F0E8" oninput="onPick()">
+                        <span class="picker-hex" id="hex-pick-cream">#F5F0E8</span>
+                    </label>
+                </div>
+                <p class="tester-rules">
+                    <strong>Regras da identidade:</strong> primária sempre escura e sóbria (petróleo,
+                    verde-musgo, chumbo, vinho profundo) — nunca preto puro nem azul genérico ·
+                    destaque na família champagne / dourado / areia — nunca amarelo vivo ·
+                    fundos sempre off-white — nunca branco puro · o verde do WhatsApp é fixo
+                    e não participa da troca.
+                </p>
+                <div class="tester-actions">
+                    <button class="btn btn-dark" onclick="copyRoot(this)">Copiar bloco :root com esta paleta</button>
+                    <button class="tester-reset" onclick="resetPalette()">Restaurar paleta original</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Tipografia ── -->
+        <div class="comp-block">
+            <h3 class="comp-title">Tipografia</h3>
+            <p class="comp-desc">
+                Duas fontes, sempre: <strong>Cormorant Garamond</strong> (serifada) para títulos e números
+                de destaque, <strong>DM Sans</strong> para todo o resto. Nunca use a mesma fonte em título e corpo.
+            </p>
+            <div class="stage">
+                <div class="type-row">
+                    <div class="type-spec">Cormorant Garamond<br>700 · itálico no destaque<br>clamp(54px, 8.5vw, 112px)</div>
+                    <div class="t-display">Pronto para <em>morar</em></div>
+                </div>
+                <div class="type-row">
+                    <div class="type-spec">Cormorant Garamond<br>700 · títulos de seção<br>clamp(28px, 4vw, 50px)</div>
+                    <div class="t-headline">Plantas exclusivas para<br>cada estilo de vida</div>
+                </div>
+                <div class="type-row">
+                    <div class="type-spec">DM Sans · 600<br>11px · uppercase<br>letter-spacing 3px</div>
+                    <div class="t-eyebrow">Tipologias disponíveis</div>
+                </div>
+                <div class="type-row">
+                    <div class="type-spec">DM Sans · 300/400<br>15–16px · line-height 1.7+</div>
+                    <div class="t-body">Texto de corpo em peso leve, com <strong>trechos em destaque</strong> no peso 600. Mínimo de 16px em celular.</div>
+                </div>
+            </div>
+            <div class="codebox">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>&lt;link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"&gt;
+
+&lt;h1 class="hero-h1"&gt;Pronto para&lt;br&gt;&lt;em&gt;morar&lt;/em&gt;&lt;/h1&gt;
+
+&lt;span class="eyebrow"&gt;Tipologias disponíveis&lt;/span&gt;
+&lt;h2 class="headline"&gt;Plantas exclusivas para&lt;br&gt;cada estilo de vida&lt;/h2&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- ── Botões ── -->
+        <div class="comp-block">
+            <h3 class="comp-title">Botões</h3>
+            <p class="comp-desc">
+                Três variações, sempre com cantos retos (border-radius máximo de 1px).
+                O verde é exclusivo para ações de WhatsApp; o dourado para o CTA principal
+                sobre fundo escuro; o escuro para CTAs sobre fundo claro.
+            </p>
+            <div class="stage">
+                <div class="btn-row">
+                    <a class="btn btn-gold" href="#" onclick="return false">Solicitar Atendimento</a>
+                    <a class="btn btn-dark" href="#" onclick="return false">Consultar condições e disponibilidade</a>
+                    <a class="btn btn-green" href="#" onclick="return false">
+                        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.529 5.856L.057 23.875l6.196-1.449A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.518-5.179-1.421l-.371-.22-3.678.86.874-3.595-.241-.389A9.955 9.955 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                        Falar no WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="codebox">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>&lt;!-- Dourado: CTA principal sobre fundo escuro --&gt;
+&lt;a href="https://wa.me/553240098000" target="_blank" rel="noopener" class="btn btn-gold"&gt;Solicitar Atendimento&lt;/a&gt;
+
+&lt;!-- Escuro: CTA sobre fundo claro --&gt;
+&lt;a href="https://wa.me/553240098000" target="_blank" rel="noopener" class="btn btn-dark"&gt;Consultar condições e disponibilidade&lt;/a&gt;
+
+&lt;!-- Verde: exclusivo para WhatsApp --&gt;
+&lt;a href="https://wa.me/553240098000" target="_blank" rel="noopener" class="btn btn-green"&gt;Falar no WhatsApp&lt;/a&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- ── Badge ── -->
+        <div class="comp-block">
+            <h3 class="comp-title">Badge "Pronto para morar"</h3>
+            <p class="comp-desc">
+                O selo de status com ponto verde pulsante que abre o hero. O texto muda conforme o
+                empreendimento e a localização — o formato "Nome · Bairro, Cidade" se mantém.
+            </p>
+            <div class="stage on-dark">
+                <span class="hero-eyebrow">Marina Residence · Alto dos Passos, Juiz de Fora</span>
+            </div>
+            <div class="codebox">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>&lt;span class="hero-eyebrow"&gt;Marina Residence · Alto dos Passos, Juiz de Fora&lt;/span&gt;
+
+&lt;style&gt;
+.hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    color: var(--gold);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+}
+.hero-eyebrow::before {
+    content: ''; width: 7px; height: 7px;
+    background: #5FCF80; border-radius: 50%;
+    animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+&lt;/style&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- ── Cards de preço ── -->
+        <div class="comp-block">
+            <h3 class="comp-title">Cards de preço</h3>
+            <p class="comp-desc">
+                Os preços das tipologias ficam direto no hero, separados por um filete dourado.
+                Valor sempre em Cormorant Garamond dourado — é a âncora visual da dobra.
+            </p>
+            <div class="stage on-dark">
+                <div class="hero-precos">
+                    <div class="hp-item">
+                        <span class="hp-tipo">3 Quartos</span>
+                        <span class="hp-label">a partir de</span>
+                        <span class="hp-valor">R$ 1.279.000</span>
+                    </div>
+                    <div class="hp-sep"></div>
+                    <div class="hp-item">
+                        <span class="hp-tipo">2 Quartos</span>
+                        <span class="hp-label">a partir de</span>
+                        <span class="hp-valor">R$ 919.000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="codebox">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>&lt;div class="hero-precos"&gt;
+    &lt;div class="hp-item"&gt;
+        &lt;span class="hp-tipo"&gt;3 Quartos&lt;/span&gt;
+        &lt;span class="hp-label"&gt;a partir de&lt;/span&gt;
+        &lt;span class="hp-valor"&gt;R$ 1.279.000&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="hp-sep"&gt;&lt;/div&gt;
+    &lt;div class="hp-item"&gt;
+        &lt;span class="hp-tipo"&gt;2 Quartos&lt;/span&gt;
+        &lt;span class="hp-label"&gt;a partir de&lt;/span&gt;
+        &lt;span class="hp-valor"&gt;R$ 919.000&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- ── Seção do corretor ── -->
+        <div class="comp-block">
+            <h3 class="comp-title">Seção do corretor</h3>
+            <p class="comp-desc">
+                Autoridade e proximidade: avatar circular com borda escura (única exceção à regra dos
+                cantos retos), tags de credencial, citação com filete dourado e bio em dois parágrafos.
+            </p>
+            <div class="stage">
+                <div class="demo-corretor">
+                    <div class="avatar-lg" aria-hidden="true">
+                        <!-- Na LP, aqui entra a foto: fotos/anderson-soares.jpeg -->
+                        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                    </div>
+                    <div>
+                        <span class="eyebrow">Seu especialista no empreendimento</span>
+                        <div class="demo-corretor-name">Anderson Soares</div>
+                        <div class="corretor-tags">
+                            <span class="c-tag">CEO da Acervo Imóveis</span>
+                            <span class="c-tag">37 anos de mercado</span>
+                            <span class="c-tag">Especialista Marina Residence</span>
+                        </div>
+                        <div class="corretor-pullquote">
+                            <p>"Com 37 anos de atuação no mercado imobiliário, construí minha trajetória
+                            com base em experiência, conhecimento técnico e, acima de tudo, confiança."</p>
+                        </div>
+                        <p class="demo-bio">
+                            Sou <strong>CEO da Acervo Imóveis</strong> e ao longo da minha trajetória
+                            desenvolvi o olhar necessário para identificar e apresentar empreendimentos
+                            verdadeiramente excepcionais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="codebox">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>&lt;div class="avatar-lg"&gt;
+    &lt;img src="./fotos/anderson-soares.jpeg" alt="Anderson Soares — CEO da Acervo Imóveis"&gt;
+&lt;/div&gt;
+
+&lt;span class="eyebrow"&gt;Seu especialista no empreendimento&lt;/span&gt;
+&lt;h2 class="corretor-v2-name"&gt;Anderson Soares&lt;/h2&gt;
+
+&lt;div class="corretor-v2-tags"&gt;
+    &lt;span class="c-tag"&gt;CEO da Acervo Imóveis&lt;/span&gt;
+    &lt;span class="c-tag"&gt;37 anos de mercado&lt;/span&gt;
+    &lt;span class="c-tag"&gt;Especialista Marina Residence&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="corretor-pullquote"&gt;
+    &lt;p&gt;"Com 37 anos de atuação no mercado imobiliário, construí minha
+    trajetória com base em experiência, conhecimento técnico e,
+    acima de tudo, confiança."&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║   3 — PUBLICAÇÃO                ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="publicacao" class="dark">
+    <div class="container">
+        <div class="sec-head">
+            <span class="sec-num" style="color:var(--gold)">Seção 03</span>
+            <span class="eyebrow light">Passo a passo</span>
+            <h2 class="headline light">Como publicar a página<br>no GitHub Pages</h2>
+            <div class="rule"></div>
+            <p class="lead" style="color:rgba(255,255,255,.65)">
+                A hospedagem no GitHub Pages é gratuita e não exige servidor. Siga os passos
+                na ordem — a primeira publicação leva cerca de 15 minutos; as atualizações, menos de 2.
+            </p>
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <div>
+                    <h3>Duplique o arquivo do template</h3>
+                    <p>Copie <span class="tag-find">LP_Anderson_Soares_v5.html</span> e cole na mesma pasta
+                    com o nome do novo empreendimento (ex.: <span class="tag-find">LP_NomeDoEmpreendimento_v1.html</span>).
+                    <strong>Nunca edite o arquivo original</strong> — ele é o modelo-mestre de todas as páginas.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div>
+                    <h3>Substitua os conteúdos</h3>
+                    <p>Abra a cópia no editor e troque tudo que está listado na
+                    <a href="#configuracao" style="color:var(--gold)">Seção 01 — Configuração rápida</a>:
+                    nome, vídeo, preços, WhatsApp, corretor, fotos e logo.</p>
+                    <p>Ao terminar, abra o arquivo com dois cliques no navegador e revise a página inteira,
+                    do topo ao rodapé, antes de publicar.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div>
+                    <h3>Crie o repositório no GitHub</h3>
+                    <p>Entre em <strong>github.com</strong>, clique em <strong>New repository</strong>, dê um nome
+                    simples e minúsculo (ex.: <span class="tag-find">lp-nome-do-empreendimento</span>) e marque como
+                    <strong>Public</strong> — o Pages gratuito exige repositório público.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div>
+                    <h3>Suba os arquivos</h3>
+                    <p>No repositório, use <strong>Add file → Upload files</strong> e envie:</p>
+                    <p>· o arquivo HTML <strong>renomeado para <span class="tag-find">index.html</span></strong>
+                    (é esse nome que faz a página abrir direto no endereço)<br>
+                    · a pasta <span class="tag-find">fotos/</span> completa, com as imagens já otimizadas<br>
+                    · a logo e demais imagens que o HTML referencia</p>
+                    <div class="step-warn">
+                        <strong>Não pule:</strong> crie também um arquivo vazio chamado <span class="tag-find">.nojekyll</span>
+                        (Add file → Create new file, digite o nome e salve sem conteúdo). Sem ele, o processamento
+                        automático do GitHub pode falhar em repositórios com muitas fotos e a página não publica.
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div>
+                    <h3>Ative o GitHub Pages</h3>
+                    <p>No repositório, vá em <strong>Settings → Pages</strong>. Em "Build and deployment",
+                    escolha <strong>Deploy from a branch</strong>, selecione a branch <span class="tag-find">main</span>
+                    e a pasta <span class="tag-find">/ (root)</span>. Clique em <strong>Save</strong>.</p>
+                    <p>Em 1 a 5 minutos a página fica no ar em
+                    <span class="tag-find">https://seu-usuario.github.io/nome-do-repositorio/</span>.</p>
+                    <div class="step-warn">
+                        Se após alguns minutos a página não abrir, o deploy pode ter falhado silenciosamente —
+                        acontece de vez em quando. Faça qualquer alteração mínima em um arquivo (ou um novo upload)
+                        para disparar uma nova publicação.
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div>
+                    <h3>Para atualizar a página no ar</h3>
+                    <p>Edite o <span class="tag-find">index.html</span> direto no GitHub (ícone de lápis) ou envie
+                    o arquivo novamente por <strong>Upload files</strong> — o arquivo novo substitui o antigo e a
+                    página se atualiza sozinha em 1 a 2 minutos. Pode ser preciso recarregar com
+                    <strong>Ctrl+F5</strong> para ver a mudança.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║   4 — CHECKLIST DE ENTREGA      ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<section id="checklist" class="white">
+    <div class="container">
+        <div class="sec-head">
+            <span class="sec-num">Seção 04</span>
+            <span class="eyebrow">Antes de rodar anúncios</span>
+            <h2 class="headline">Checklist de entrega</h2>
+            <div class="rule"></div>
+            <p class="lead">
+                Marque cada item ao conferir. A página só está pronta para receber tráfego pago
+                quando <strong>todos</strong> os itens estiverem marcados.
+            </p>
+        </div>
+
+        <div class="check-group">
+            <div class="check-group-title">Conteúdo</div>
+            <label class="check-item"><input type="checkbox"><span>Nome do empreendimento substituído em <strong>todas</strong> as ocorrências (aba do navegador, hero, textos, mensagem do WhatsApp)</span></label>
+            <label class="check-item"><input type="checkbox"><span>Preços das unidades conferidos com a tabela oficial vigente</span></label>
+            <label class="check-item"><input type="checkbox"><span>Vídeo do YouTube correto — abre e reproduz dentro da página</span></label>
+            <label class="check-item"><input type="checkbox"><span>Foto, nome, tags e bio do corretor atualizados</span></label>
+            <label class="check-item"><input type="checkbox"><span>Endereço e mapa apontando para o empreendimento certo (mapa <strong>e</strong> link "Abrir no Google Maps")</span></label>
+            <label class="check-item"><input type="checkbox"><span>Todas as fotos das galerias carregando, na aba certa e com legenda correta — <strong>clique em cada aba</strong> para conferir</span></label>
+            <label class="check-item"><input type="checkbox"><span>Textos revisados: sem erro de português e sem sobras do empreendimento anterior</span></label>
+        </div>
+
+        <div class="check-group">
+            <div class="check-group-title">Conversão</div>
+            <label class="check-item"><input type="checkbox"><span><strong>Todos</strong> os botões de WhatsApp abrem conversa com o número certo (header, plantas, corretor, formulário, botão flutuante e rodapé)</span></label>
+            <label class="check-item"><input type="checkbox"><span>Formulário preenchido de teste abre o WhatsApp com nome, e-mail e telefone na mensagem</span></label>
+            <label class="check-item"><input type="checkbox"><span>Máscara de telefone funcionando no campo do formulário</span></label>
+            <label class="check-item"><input type="checkbox"><span>Botão flutuante do WhatsApp visível no celular, sem cobrir conteúdo importante</span></label>
+        </div>
+
+        <div class="check-group">
+            <div class="check-group-title">Técnica</div>
+            <label class="check-item"><input type="checkbox"><span>Página testada no celular de verdade (não só no computador): hero, preços, galerias e formulário</span></label>
+            <label class="check-item"><input type="checkbox"><span>Fotos otimizadas — nenhuma imagem acima de ~200KB nem mais larga que 1600px</span></label>
+            <label class="check-item"><input type="checkbox"><span>Nenhuma imagem quebrada, cortada ou distorcida em toda a página</span></label>
+            <label class="check-item"><input type="checkbox"><span>Lightbox da galeria abre, navega pelas setas e fecha (teste também o deslizar no celular)</span></label>
+            <label class="check-item"><input type="checkbox"><span>Header muda de transparente para escuro ao rolar a página</span></label>
+            <label class="check-item"><input type="checkbox"><span>Título e descrição da aba do navegador atualizados (aparecem no compartilhamento em redes sociais)</span></label>
+        </div>
+
+        <div class="check-group">
+            <div class="check-group-title">Publicação</div>
+            <label class="check-item"><input type="checkbox"><span>Arquivo publicado como <strong>index.html</strong> e arquivo <strong>.nojekyll</strong> presente no repositório</span></label>
+            <label class="check-item"><input type="checkbox"><span>Endereço final (github.io) abrindo em janela anônima e em celular fora do Wi-Fi</span></label>
+            <label class="check-item"><input type="checkbox"><span>Link final testado colando direto no navegador — é este o endereço que vai nos anúncios</span></label>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- ╔══════════════════════════════════╗ -->
+<!-- ║            RODAPÉ               ║ -->
+<!-- ╚══════════════════════════════════╝ -->
+<footer>
+    <div class="container">
+        <div class="ft-brand">Anderson Soares <em>Imóveis</em></div>
+        <div class="ft-note">Kit de entrega · Template LP_Anderson_Soares_v5 · Diretrizes em CLAUDE_Skill_imobaltopadrao.md</div>
+    </div>
+</footer>
+
+<script>
+    /* ── Utilitário: copiar texto com feedback no botão ── */
+    function copyToClipboard(text, btn) {
+        function done() {
+            if (!btn.dataset.label) btn.dataset.label = btn.textContent;
+            btn.textContent = 'Copiado ✓';
+            btn.classList.add('ok');
+            setTimeout(function () {
+                btn.textContent = btn.dataset.label;
+                btn.classList.remove('ok');
+            }, 1800);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done);
+        } else {
+            /* fallback para abrir via file:// em navegadores antigos */
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            done();
+        }
+    }
+
+    /* ── Botão "Copiar" dos blocos de código ── */
+    function copyCode(btn) {
+        copyToClipboard(btn.parentElement.querySelector('pre code').textContent, btn);
+    }
+
+    /* ══════════════════════════════════════════════
+       TESTADOR DE PALETA
+       Três cores-base geram a paleta completa; os
+       valores derivados (hovers, fundos, textos) são
+       calculados em HSL para manter a harmonia.
+    ══════════════════════════════════════════════ */
+    var PALETTE_ORIGINAL = {
+        '--dark': '#012A31', '--dark-hover': '#023540', '--dark-rgb': '1, 42, 49',
+        '--dark-deep': '#0A1F23', '--footer-bg': '#000D0F',
+        '--gold': '#E2CDAD', '--gold-dark': '#C9B08A', '--gold-rgb': '226, 205, 173',
+        '--cream': '#F5F0E8', '--offwhite': '#F9F7F3',
+        '--ink': '#1C2B2D', '--muted': '#5A6E71',
+        '--field-border': '#DDD5C5', '--placeholder': '#AEAAA2'
+    };
+    var PALETTE_BASE = { dark: '#012A31', gold: '#E2CDAD', cream: '#F5F0E8' };
+    var paletteCurrent = Object.assign({}, PALETTE_ORIGINAL);
+
+    function hexToHsl(hex) {
+        var r = parseInt(hex.slice(1, 3), 16) / 255,
+            g = parseInt(hex.slice(3, 5), 16) / 255,
+            b = parseInt(hex.slice(5, 7), 16) / 255;
+        var max = Math.max(r, g, b), min = Math.min(r, g, b);
+        var h = 0, s = 0, l = (max + min) / 2;
+        if (max !== min) {
+            var d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            if (max === r)      h = (g - b) / d + (g < b ? 6 : 0);
+            else if (max === g) h = (b - r) / d + 2;
+            else                h = (r - g) / d + 4;
+            h *= 60;
+        }
+        return { h: h, s: s * 100, l: l * 100 };
+    }
+    function hslToHex(h, s, l) {
+        s = Math.min(Math.max(s, 0), 100) / 100;
+        l = Math.min(Math.max(l, 0), 100) / 100;
+        var c = (1 - Math.abs(2 * l - 1)) * s,
+            x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
+            m = l - c / 2, r = 0, g = 0, b = 0;
+        if (h < 60)       { r = c; g = x; }
+        else if (h < 120) { r = x; g = c; }
+        else if (h < 180) { g = c; b = x; }
+        else if (h < 240) { g = x; b = c; }
+        else if (h < 300) { r = x; b = c; }
+        else              { r = c; b = x; }
+        function toHex(v) {
+            var n = Math.round((v + m) * 255).toString(16).toUpperCase();
+            return n.length === 1 ? '0' + n : n;
+        }
+        return '#' + toHex(r) + toHex(g) + toHex(b);
+    }
+    function rgbTriplet(hex) {
+        return parseInt(hex.slice(1, 3), 16) + ', '
+             + parseInt(hex.slice(3, 5), 16) + ', '
+             + parseInt(hex.slice(5, 7), 16);
+    }
+
+    function derivePalette(dark, gold, cream) {
+        dark = dark.toUpperCase(); gold = gold.toUpperCase(); cream = cream.toUpperCase();
+        /* Cores originais → devolve os valores exatos calibrados à mão */
+        if (dark === PALETTE_BASE.dark && gold === PALETTE_BASE.gold && cream === PALETTE_BASE.cream) {
+            return Object.assign({}, PALETTE_ORIGINAL);
+        }
+        var d = hexToHsl(dark), g = hexToHsl(gold), c = hexToHsl(cream);
+        return {
+            '--dark':         dark,
+            '--dark-hover':   hslToHex(d.h, d.s, Math.min(d.l + 3, 96)),
+            '--dark-rgb':     rgbTriplet(dark),
+            '--dark-deep':    hslToHex(d.h, d.s * 0.6, Math.max(d.l - 1, 4)),
+            '--footer-bg':    hslToHex(d.h, d.s, 3),
+            '--gold':         gold,
+            '--gold-dark':    hslToHex(g.h, Math.max(g.s - 10, 0), Math.max(g.l - 12, 8)),
+            '--gold-rgb':     rgbTriplet(gold),
+            '--cream':        cream,
+            '--offwhite':     hslToHex(c.h, Math.max(c.s - 6, 0), Math.min(c.l + 3, 97)),
+            '--ink':          hslToHex(d.h, 23, 14),
+            '--muted':        hslToHex(d.h, 12, 40),
+            '--field-border': hslToHex(c.h, Math.max(c.s - 13, 0), Math.max(c.l - 11, 0)),
+            '--placeholder':  hslToHex(c.h, 8, 66)
+        };
+    }
+
+    function applyPalette(p) {
+        paletteCurrent = p;
+        for (var k in p) document.documentElement.style.setProperty(k, p[k]);
+        /* Atualiza os códigos hex exibidos nos swatches */
+        document.querySelectorAll('[data-hex]').forEach(function (el) {
+            var v = p[el.dataset.hex];
+            if (v) el.textContent = v;
+        });
+        /* Atualiza os hex ao lado dos seletores */
+        ['dark', 'gold', 'cream'].forEach(function (n) {
+            document.getElementById('hex-pick-' + n).textContent =
+                document.getElementById('pick-' + n).value.toUpperCase();
+        });
+    }
+
+    function onPick() {
+        applyPalette(derivePalette(
+            document.getElementById('pick-dark').value,
+            document.getElementById('pick-gold').value,
+            document.getElementById('pick-cream').value
+        ));
+    }
+
+    function resetPalette() {
+        document.getElementById('pick-dark').value  = PALETTE_BASE.dark;
+        document.getElementById('pick-gold').value  = PALETTE_BASE.gold;
+        document.getElementById('pick-cream').value = PALETTE_BASE.cream;
+        applyPalette(Object.assign({}, PALETTE_ORIGINAL));
+    }
+
+    /* Gera o bloco :root completo, no mesmo formato da LP,
+       pronto para colar por cima do bloco original */
+    function copyRoot(btn) {
+        var p = paletteCurrent;
+        var texto = [
+            '/* ═══ PALETA DO EMPREENDIMENTO — cole este bloco por cima do :root da LP ═══ */',
+            ':root {',
+            '    /* ── Cor primária (fundos escuros, títulos, botões) ── */',
+            '    --dark:         ' + p['--dark'] + ';',
+            '    --dark-hover:   ' + p['--dark-hover'] + ';',
+            '    --dark-rgb:     ' + p['--dark-rgb'] + ';',
+            '    --dark-deep:    ' + p['--dark-deep'] + ';',
+            '    --footer-bg:    ' + p['--footer-bg'] + ';',
+            '',
+            '    /* ── Cor de destaque (preços, eyebrows, detalhes) ── */',
+            '    --gold:         ' + p['--gold'] + ';',
+            '    --gold-dark:    ' + p['--gold-dark'] + ';',
+            '    --gold-rgb:     ' + p['--gold-rgb'] + ';',
+            '',
+            '    /* ── Neutros (fundos claros e textos) ── */',
+            '    --cream:        ' + p['--cream'] + ';',
+            '    --offwhite:     ' + p['--offwhite'] + ';',
+            '    --ink:          ' + p['--ink'] + ';',
+            '    --muted:        ' + p['--muted'] + ';',
+            '    --field-border: ' + p['--field-border'] + ';',
+            '    --placeholder:  ' + p['--placeholder'] + ';',
+            '',
+            '    /* ── Cores fixas — NÃO alterar entre empreendimentos ── */',
+            '    --wa:           #25D366;',
+            '    --wa-hover:     #1DAA57;',
+            '    --wa-light:     #5FE58C;',
+            '    --wa-rgb:       37, 211, 102;',
+            '    --status-dot:   #5FCF80;',
+            '',
+            '    /* Espaçamento e grid */',
+            '    --pad:        clamp(64px, 9vw, 120px);',
+            '    --wrap:       1200px;',
+            '}'
+        ].join('\n');
+        copyToClipboard(texto, btn);
+    }
+</script>
+</body>
+</html>

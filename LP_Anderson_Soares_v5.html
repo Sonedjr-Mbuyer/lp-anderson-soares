@@ -18,23 +18,58 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: 'DM Sans', sans-serif;
-            color: #1C2B2D;
-            background: #F9F7F3; /* off-white — nunca branco puro */
+            color: var(--ink);
+            background: var(--offwhite); /* off-white — nunca branco puro */
             overflow-x: hidden;
         }
         img { max-width: 100%; height: auto; display: block; }
         a { text-decoration: none; color: inherit; }
         button { font-family: inherit; cursor: pointer; }
 
-        /* ===== VARIÁVEIS CSS ===== */
+        /* ═══════════════════════════════════════════════════════
+           PALETA DO EMPREENDIMENTO — troque as cores SOMENTE aqui.
+           Toda a página usa estas variáveis: alterar este bloco
+           reestiliza a LP inteira (botões, fundos, filetes,
+           transparências, formulário e rodapé).
+
+           Regras da identidade (CLAUDE_Skill_imobaltopadrao.md):
+           - Primária: tom escuro e sóbrio (petróleo, verde-musgo,
+             chumbo, vinho) — nunca preto puro, nunca azul genérico.
+           - Destaque: dourado envelhecido, champagne ou areia —
+             nunca amarelo vivo.
+           - Fundos: off-white — nunca branco puro (#FFF).
+
+           Dica: o testador de paleta do arquivo
+           DESIGN_SYSTEM_Anderson_Soares.html gera este bloco pronto.
+        ═══════════════════════════════════════════════════════ */
         :root {
-            /* Cores principais */
-            --dark:       #012A31;  /* verde-petróleo profundo */
-            --dark-hover: #023540;
-            --gold:       #E2CDAD;  /* champagne / dourado envelhecido */
-            --gold-dark:  #C9B08A;
-            --cream:      #F5F0E8;  /* off-white quente */
-            --muted:      #5A6E71;  /* texto secundário */
+            /* ── Cor primária (fundos escuros, títulos, botões) ── */
+            --dark:         #012A31;      /* verde-petróleo profundo */
+            --dark-hover:   #023540;      /* hover do botão escuro */
+            --dark-rgb:     1, 42, 49;    /* a MESMA primária em R,G,B — usada nas transparências */
+            --dark-deep:    #0A1F23;      /* fundo dos itens da galeria */
+            --footer-bg:    #000D0F;      /* fundo do rodapé (primária quase preta) */
+
+            /* ── Cor de destaque (preços, eyebrows, detalhes) ── */
+            --gold:         #E2CDAD;      /* champagne / dourado envelhecido */
+            --gold-dark:    #C9B08A;      /* hover do dourado, destaque em fundo claro */
+            --gold-rgb:     226, 205, 173; /* o MESMO destaque em R,G,B — usado nas transparências */
+
+            /* ── Neutros (fundos claros e textos) ── */
+            --cream:        #F5F0E8;      /* fundo de seções claras e citações */
+            --offwhite:     #F9F7F3;      /* fundo geral — nunca branco puro */
+            --ink:          #1C2B2D;      /* texto principal em fundo claro */
+            --muted:        #5A6E71;      /* texto secundário */
+            --field-border: #DDD5C5;      /* borda dos campos do formulário */
+            --placeholder:  #AEAAA2;      /* texto de exemplo dentro dos campos */
+
+            /* ── Cores fixas — NÃO alterar entre empreendimentos ── */
+            --wa:           #25D366;      /* verde oficial do WhatsApp */
+            --wa-hover:     #1DAA57;
+            --wa-light:     #5FE58C;
+            --wa-rgb:       37, 211, 102;
+            --status-dot:   #5FCF80;      /* ponto verde pulsante do badge do hero */
+
             /* Espaçamento e grid */
             --pad:        clamp(64px, 9vw, 120px);
             --wrap:       1200px;
@@ -57,7 +92,7 @@
             }
             #cursor-dot.expanded {
                 width: 22px; height: 22px;
-                background: rgba(226,205,173,.15);
+                background: rgba(var(--gold-rgb),.15);
                 border: 1.5px solid var(--gold);
             }
             #cursor-dot.hidden { opacity: 0; }
@@ -133,8 +168,8 @@
         .btn-gold:hover  { background: var(--gold-dark); }
         .btn-dark        { background: var(--dark);  color: #fff; }
         .btn-dark:hover  { background: var(--dark-hover); }
-        .btn-green       { background: #25D366; color: #fff; }
-        .btn-green:hover { background: #1DAA57; }
+        .btn-green       { background: var(--wa); color: #fff; }
+        .btn-green:hover { background: var(--wa-hover); }
         .btn svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
 
         /* ===== HEADER ===== */
@@ -180,7 +215,7 @@
         .h-avatar {
             width: 36px; height: 36px;
             border-radius: 50%;
-            border: 2px solid rgba(226,205,173,.45);
+            border: 2px solid rgba(var(--gold-rgb),.45);
             flex-shrink: 0;
             overflow: hidden;
         }
@@ -241,9 +276,9 @@
             inset: 0;
             background: linear-gradient(
                 180deg,
-                rgba(1,42,49,.80) 0%,
-                rgba(1,42,49,.55) 50%,
-                rgba(1,42,49,.82) 100%
+                rgba(var(--dark-rgb),.80) 0%,
+                rgba(var(--dark-rgb),.55) 50%,
+                rgba(var(--dark-rgb),.82) 100%
             );
         }
         /* Conteúdo do hero centralizado em coluna única */
@@ -273,7 +308,7 @@
         .hero-eyebrow::before {
             content: '';
             width: 7px; height: 7px;
-            background: #5FCF80;
+            background: var(--status-dot);
             border-radius: 50%;
             animation: blink 2s ease-in-out infinite;
         }
@@ -331,7 +366,7 @@
             color: var(--gold);
             line-height: 1;
         }
-        .hp-sep { width: 1px; background: rgba(226,205,173,.28); }
+        .hp-sep { width: 1px; background: rgba(var(--gold-rgb),.28); }
 
         /* Vídeo do empreendimento no hero (16:9, sem autoplay) */
         .hero-video {
@@ -339,7 +374,7 @@
             aspect-ratio: 16 / 9;
             background: #000;
             box-shadow: 0 16px 56px rgba(0,0,0,.42);
-            border: 1px solid rgba(226,205,173,.25);
+            border: 1px solid rgba(var(--gold-rgb),.25);
         }
         .hero-video iframe {
             width: 100%;
@@ -386,7 +421,7 @@
         .n-item {
             padding: 48px 20px;
             text-align: center;
-            border-right: 1px solid rgba(226,205,173,.12);
+            border-right: 1px solid rgba(var(--gold-rgb),.12);
         }
         .n-item:last-child { border-right: none; }
         .n-val {
@@ -446,7 +481,7 @@
             justify-content: center;
             gap: 10px;
             padding: 15px 20px;
-            background: #25D366;
+            background: var(--wa);
             color: #fff;
             font-family: 'DM Sans', sans-serif;
             font-size: 14px;
@@ -456,7 +491,7 @@
             transition: background .2s, transform .15s;
             cursor: pointer;
         }
-        .btn-wa-lg:hover { background: #1DAA57; transform: translateY(-2px); }
+        .btn-wa-lg:hover { background: var(--wa-hover); transform: translateY(-2px); }
         .btn-wa-lg svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
         /* Coluna direita */
         .corretor-v2-right { padding-top: 8px; }
@@ -538,7 +573,7 @@
         .s-dot {
             width: 8px; height: 8px;
             border-radius: 50%;
-            background: rgba(1,42,49,.2);
+            background: rgba(var(--dark-rgb),.2);
             border: none;
             cursor: pointer;
             transition: background .2s;
@@ -555,7 +590,7 @@
             gap: 4px;
             flex-wrap: wrap;
             margin-bottom: 32px;
-            border-bottom: 1px solid rgba(226,205,173,.18);
+            border-bottom: 1px solid rgba(var(--gold-rgb),.18);
         }
         .gal-tab {
             background: transparent;
@@ -606,7 +641,7 @@
             gap: 4px;
         }
         .ng-grid .g-item:first-child { grid-column: span 2; grid-row: span 2; }
-        .g-item { position: relative; overflow: hidden; cursor: pointer; background: #0A1F23; }
+        .g-item { position: relative; overflow: hidden; cursor: pointer; background: var(--dark-deep); }
         .g-item img {
             width: 100%; height: 100%;
             object-fit: cover;
@@ -616,13 +651,13 @@
         .g-over {
             position: absolute;
             inset: 0;
-            background: rgba(1,42,49,0);
+            background: rgba(var(--dark-rgb),0);
             display: flex;
             align-items: flex-end;
             padding: 16px;
             transition: background .35s;
         }
-        .g-item:hover .g-over { background: rgba(1,42,49,.52); }
+        .g-item:hover .g-over { background: rgba(var(--dark-rgb),.52); }
         .g-cap {
             color: #fff;
             font-size: 13px;
@@ -685,7 +720,7 @@
         .map-wrap {
             margin-top: 48px;
             position: relative;
-            border: 1px solid rgba(226,205,173,.2);
+            border: 1px solid rgba(var(--gold-rgb),.2);
         }
         .map-wrap iframe {
             width: 100%;
@@ -719,7 +754,7 @@
             align-items: flex-start;
             gap: 14px;
             padding-bottom: 20px;
-            border-bottom: 1px solid rgba(226,205,173,.12);
+            border-bottom: 1px solid rgba(var(--gold-rgb),.12);
         }
         .map-pt:last-child { border-bottom: none; padding-bottom: 0; }
         .map-dot {
@@ -774,8 +809,8 @@
         .field input {
             width: 100%;
             padding: 13px 15px;
-            border: 1px solid #DDD5C5;
-            background: #F9F7F3;
+            border: 1px solid var(--field-border);
+            background: var(--offwhite);
             font-family: 'DM Sans', sans-serif;
             font-size: 15px;
             color: var(--dark);
@@ -785,11 +820,11 @@
             transition: border-color .2s, background .2s;
         }
         .field input:focus { border-color: var(--dark); background: #fff; }
-        .field input::placeholder { color: #AEAAA2; }
+        .field input::placeholder { color: var(--placeholder); }
         .btn-submit {
             width: 100%;
             padding: 16px;
-            background: #25D366;
+            background: var(--wa);
             color: #fff;
             border: none;
             font-family: 'DM Sans', sans-serif;
@@ -804,7 +839,7 @@
             gap: 10px;
             transition: background .2s, transform .15s;
         }
-        .btn-submit:hover { background: #1DAA57; transform: translateY(-1px); }
+        .btn-submit:hover { background: var(--wa-hover); transform: translateY(-1px); }
         .btn-submit svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
         .form-wa-alt {
             display: flex;
@@ -815,8 +850,8 @@
             font-size: 13px;
             color: var(--muted);
         }
-        .form-wa-alt a { color: #25D366; font-weight: 600; display: flex; align-items: center; gap: 5px; }
-        .form-wa-alt svg { width: 15px; height: 15px; fill: #25D366; }
+        .form-wa-alt a { color: var(--wa); font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .form-wa-alt svg { width: 15px; height: 15px; fill: var(--wa); }
 
         /* ===== WHATSAPP FLUTUANTE ===== */
         #wa-float {
@@ -824,26 +859,26 @@
             bottom: 28px; right: 28px;
             z-index: 300;
             width: 58px; height: 58px;
-            background: #25D366;
+            background: var(--wa);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 22px rgba(37,211,102,.38);
+            box-shadow: 0 4px 22px rgba(var(--wa-rgb),.38);
             transition: transform .2s, box-shadow .2s;
         }
-        #wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,.55); }
+        #wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(var(--wa-rgb),.55); }
         #wa-float svg { width: 30px; height: 30px; fill: #fff; }
 
         /* ===== FOOTER ===== */
-        footer { background: #000D0F; padding: 52px 0 32px; }
+        footer { background: var(--footer-bg); padding: 52px 0 32px; }
         .ft-inner {
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 40px;
             align-items: start;
             padding-bottom: 36px;
-            border-bottom: 1px solid rgba(226,205,173,.1);
+            border-bottom: 1px solid rgba(var(--gold-rgb),.1);
             margin-bottom: 28px;
         }
         .ft-label {
@@ -863,10 +898,10 @@
             gap: 8px;
             font-size: 14px;
             font-weight: 600;
-            color: #25D366;
+            color: var(--wa);
             transition: color .2s;
         }
-        .ft-contact a:hover { color: #5FE58C; }
+        .ft-contact a:hover { color: var(--wa-light); }
         .ft-contact svg { width: 16px; height: 16px; fill: currentColor; }
         .ft-logos { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
         .ft-logo { text-align: center; }
@@ -897,7 +932,7 @@
             .hero-inner { padding-top: 96px; padding-bottom: 72px; }
             .numbers-grid { grid-template-columns: repeat(2,1fr); }
             .n-item:nth-child(2) { border-right: none; }
-            .n-item:nth-child(3),.n-item:nth-child(4) { border-top: 1px solid rgba(226,205,173,.12); }
+            .n-item:nth-child(3),.n-item:nth-child(4) { border-top: 1px solid rgba(var(--gold-rgb),.12); }
             .corretor-v2-grid { grid-template-columns: 1fr; }
             .corretor-v2-left { flex-direction: row; flex-wrap: wrap; justify-content: center; }
             /* Abas da galeria: carrossel horizontal deslizável */
